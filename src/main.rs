@@ -1,10 +1,11 @@
 use bevy::prelude::*;
 
-
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .insert_resource(Movement { direction: Vec2::new(1.0, 0.7).normalize() * 150.0 })
+        .insert_resource(Movement {
+            direction: Vec2::new(1.0, 0.7).normalize() * 150.0,
+        })
         .add_systems(Startup, setup)
         .add_systems(Update, (move_ball, spawn_trail_particles, fade_particles))
         .run();
@@ -14,6 +15,7 @@ fn main() {
 struct Ball;
 
 #[derive(Component)]
+
 struct TrailParticle {
     lifetime: f32,
 }
@@ -23,17 +25,17 @@ struct Movement {
     direction: Vec2,
 }
 
-
-fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+fn setup(mut commands: Commands) {
     // Camera
-    commands.spawn(Camera2d::default());
+    commands.spawn(Camera2d);
 
     commands.spawn((
         Sprite {
             color: Color::WHITE,
-            custom_size: Some(Vec2::splat(30.0)), // Adjust size as needed
+            custom_size: Some(Vec2::splat(2.0)), // Adjust size as needed
             ..default()
         },
+        Transform::from_translation(Vec3::new(0.0, 0.0, 1.0)),
         Ball,
     ));
 }
@@ -61,21 +63,16 @@ fn move_ball(
     }
 }
 
-fn spawn_trail_particles(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    query: Query<&Transform, With<Ball>>,
-) {
+fn spawn_trail_particles(mut commands: Commands, query: Query<&Transform, With<Ball>>) {
     let pos = query.single().unwrap().translation;
 
     commands.spawn((
-         {
-            Sprite {
-                color: Color::srgba(1.0, 0.5, 0.2, 0.5),
-                ..default()
-            }
+        Sprite {
+            color: Color::srgba(1.0, 0.5, 0.2, 0.5),
+            ..default()
         },
-        TrailParticle { lifetime: 0.5 },
+        Transform::from_translation(pos).with_scale(Vec3::splat(2.0)),
+        TrailParticle { lifetime: 2.0 },
     ));
 }
 
@@ -86,7 +83,7 @@ fn fade_particles(
 ) {
     for (entity, mut particle, mut sprite) in &mut query {
         particle.lifetime -= time.delta_secs();
-        sprite.color.set_alpha(particle.lifetime * 1.0);
+        sprite.color.set_alpha(particle.lifetime / 2.0);
 
         if particle.lifetime <= 0.0 {
             commands.entity(entity).despawn();
