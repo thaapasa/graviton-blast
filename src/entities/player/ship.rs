@@ -13,7 +13,7 @@ pub fn move_ball(
 ) {
     let window = windows.single().unwrap();
     let mut transform = query.single_mut().unwrap();
-    let delta = movement.direction * time.delta_secs();
+    let delta = movement.velocity * time.delta_secs();
     transform.translation += delta.extend(0.0);
 
     // Bounce off window edges

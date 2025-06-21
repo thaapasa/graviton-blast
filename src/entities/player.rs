@@ -1,3 +1,4 @@
+use crate::entities::player::movement::accelerate_ship;
 use crate::entities::player::ship::{move_ball, Ship};
 use crate::entities::player::trail::{fade_particles, spawn_trail_particles};
 use bevy::app::{App, Startup};
@@ -27,5 +28,13 @@ pub fn setup(mut commands: Commands) {
 
 pub fn add_systems(app: &mut App) {
     app.add_systems(Startup, setup);
-    app.add_systems(Update, (move_ball, spawn_trail_particles, fade_particles));
+    app.add_systems(
+        Update,
+        (
+            accelerate_ship,
+            move_ball,
+            spawn_trail_particles,
+            fade_particles,
+        ),
+    );
 }
