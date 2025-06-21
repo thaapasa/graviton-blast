@@ -1,13 +1,9 @@
+use crate::entities::player::movement::Movement;
 use bevy::math::Vec2;
 use bevy::prelude::*;
 
 #[derive(Component)]
 pub struct Ship;
-
-#[derive(Resource)]
-pub struct Movement {
-    pub direction: Vec2,
-}
 
 pub fn move_ball(
     time: Res<Time>,
