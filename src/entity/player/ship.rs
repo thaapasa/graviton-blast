@@ -1,4 +1,4 @@
-use crate::entities::player::movement::Movement;
+use crate::entity::player::movement::Movement;
 use bevy::math::Vec2;
 use bevy::prelude::*;
 

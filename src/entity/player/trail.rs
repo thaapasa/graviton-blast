@@ -1,4 +1,4 @@
-use crate::entities::player::ship::Ship;
+use crate::entity::player::ship::Ship;
 use bevy::color::Color;
 use bevy::math::Vec3;
 use bevy::prelude::*;

@@ -1,6 +1,8 @@
-mod entities;
+mod entity;
+mod level;
 
-use crate::entities::player;
+use crate::entity::player;
+use crate::level::level1;
 use bevy::prelude::*;
 
 fn main() {
@@ -9,7 +11,8 @@ fn main() {
         .insert_resource(player::create_resource())
         .add_systems(Startup, setup);
 
-    player::add_systems(&mut app);
+    // Start with level 1
+    level1::add_systems(&mut app);
     app.run();
 }
 
