@@ -2,6 +2,7 @@ mod data;
 mod entity;
 mod level;
 
+mod images;
 #[cfg(test)]
 pub mod tests;
 

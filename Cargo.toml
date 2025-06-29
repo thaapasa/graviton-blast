@@ -5,6 +5,8 @@ edition = "2024"
 
 [dependencies]
 bevy = { version = "0.16.1" }
+strum = { version = "0.27.1" }
+strum_macros = { version = "0.27.1" }
 
 [dev-dependencies]
 float-cmp = { version = "0.10.0" }

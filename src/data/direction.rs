@@ -23,6 +23,10 @@ impl Direction {
     pub fn as_vec(&self, magnitude: f32) -> Vec2 {
         Vec2::from_angle(self.0) * magnitude
     }
+
+    pub fn as_quat(&self) -> Quat {
+        Quat::from_rotation_z(self.0)
+    }
 }
 
 impl From<f32> for Direction {

@@ -15,6 +15,7 @@ pub fn move_ball(
     let mut transform = query.single_mut().unwrap();
     let delta = movement.velocity * time.delta_secs();
     transform.translation += delta.extend(0.0);
+    transform.rotation = movement.direction.as_quat();
 
     // Bounce off window edges
     let bounds = Vec2::new(window.width() / 2.0, window.height() / 2.0);
