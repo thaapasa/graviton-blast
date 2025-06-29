@@ -1,5 +1,9 @@
+mod data;
 mod entity;
 mod level;
+
+#[cfg(test)]
+pub mod tests;
 
 use crate::entity::player;
 use crate::level::level1;
@@ -7,9 +11,9 @@ use bevy::prelude::*;
 
 fn main() {
     let mut app = App::new();
-    app.add_plugins(DefaultPlugins)
-        .insert_resource(player::create_resource())
-        .add_systems(Startup, setup);
+    app.add_plugins(DefaultPlugins);
+    player::insert_resources(&mut app);
+    app.add_systems(Startup, setup);
 
     // Start with level 1
     level1::add_systems(&mut app);

@@ -21,9 +21,9 @@ pub fn move_ball(
     let pos = transform.translation;
 
     if pos.x.abs() > bounds.x {
-        movement.direction.x *= -1.0;
+        movement.velocity.x *= -1.0;
     }
     if pos.y.abs() > bounds.y {
-        movement.direction.y *= -1.0;
+        movement.velocity.y *= -1.0;
     }
 }
