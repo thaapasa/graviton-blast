@@ -29,7 +29,7 @@ pub fn map_input_to_actions(
     let bwd = keyboard.pressed(KeyCode::ArrowDown);
     match (fwd, bwd) {
         (true, false) => actions.thrust = Some(true),
-        (false, true) => actions.thrust = Some(true),
+        (false, true) => actions.thrust = Some(false),
         _ => actions.thrust = None,
     }
     actions.fire = keyboard.just_pressed(KeyCode::Space);

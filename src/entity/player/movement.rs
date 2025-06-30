@@ -1,10 +1,11 @@
 use crate::data::{Direction, Rotation, Thrust};
 use crate::entity::player::player_actions::PlayerActions;
 use bevy::prelude::*;
+use std::f32::consts::{FRAC_PI_2, PI};
 
-const ROTATION_SPEED_RADIANS_PER_SEC: f32 = 1.2;
-const FWD_THRUST: f32 = 150.0;
-const BWD_THRUST: f32 = -70.0;
+const ROTATION_SPEED_RADIANS_PER_SEC: f32 = PI + FRAC_PI_2;
+const FWD_THRUST: f32 = 350.0;
+const BWD_THRUST: f32 = -250.0;
 
 #[derive(Resource)]
 pub struct Movement {
@@ -28,8 +29,6 @@ impl Movement {
     pub fn update(&mut self, delta_secs: f32) {
         if self.force.has_thrust() {
             self.velocity += self.direction.as_vec(self.force.0 * delta_secs);
-        } else {
-            self.velocity *= 1.0 - (0.25 * delta_secs);
         }
     }
 }
@@ -50,11 +49,9 @@ pub fn update_movement(
         None => movement.force,
     };
     match actions.rotate {
-        Some(Rotation::Clockwise) => {
-            movement.direction += (ROTATION_SPEED_RADIANS_PER_SEC * elapsed).into()
-        }
+        Some(Rotation::Clockwise) => movement.direction -= ROTATION_SPEED_RADIANS_PER_SEC * elapsed,
         Some(Rotation::Anticlockwise) => {
-            movement.direction -= (ROTATION_SPEED_RADIANS_PER_SEC * elapsed).into()
+            movement.direction += ROTATION_SPEED_RADIANS_PER_SEC * elapsed
         }
         _ => (),
     }

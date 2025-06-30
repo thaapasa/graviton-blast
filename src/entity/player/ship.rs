@@ -1,4 +1,5 @@
 use crate::entity::player::movement::Movement;
+use crate::images::sprite::GameImage;
 use bevy::math::Vec2;
 use bevy::prelude::*;
 
@@ -15,7 +16,7 @@ pub fn move_ball(
     let mut transform = query.single_mut().unwrap();
     let delta = movement.velocity * time.delta_secs();
     transform.translation += delta.extend(0.0);
-    transform.rotation = movement.direction.as_quat();
+    transform.rotation = (movement.direction + GameImage::INHERENT_TEXTURE_ROTATION).as_quat();
 
     // Bounce off window edges
     let bounds = Vec2::new(window.width() / 2.0, window.height() / 2.0);

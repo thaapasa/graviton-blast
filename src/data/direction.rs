@@ -1,6 +1,19 @@
 use bevy::prelude::*;
 use std::f32::consts::{FRAC_PI_2, PI, TAU};
-use std::ops::{AddAssign, SubAssign};
+use std::ops::{Add, AddAssign, SubAssign};
+
+// 2D and 3D scenes and cameras
+// https://bevy-cheatbook.github.io/fundamentals/coords.html#coordinate-system
+//
+// Bevy uses a right-handed Y-up coordinate system for the game world. The coordinate
+// system is the same for 3D and 2D, for consistency.
+//
+// It is easiest to explain in terms of 2D:
+//
+// - The X axis goes from left to right (+X points right).
+// - The Y axis goes from bottom to top (+Y points up).
+// - The Z axis goes from far to near (+Z points towards you, out of the screen).
+// - For 2D, the origin (X=0.0; Y=0.0) is at the center of the screen by default.
 
 /// Direction, in radians
 #[derive(Debug, Copy, Clone, Default, PartialEq)]
@@ -21,7 +34,11 @@ impl Direction {
     pub const DOWN: Self = Direction(PI + FRAC_PI_2);
 
     pub fn as_vec(&self, magnitude: f32) -> Vec2 {
-        Vec2::from_angle(self.0) * magnitude
+        if magnitude.is_sign_negative() {
+            -Vec2::from_angle(self.0) * -magnitude
+        } else {
+            Vec2::from_angle(self.0) * magnitude
+        }
     }
 
     pub fn as_quat(&self) -> Quat {
@@ -35,17 +52,25 @@ impl From<f32> for Direction {
     }
 }
 
-impl AddAssign for Direction {
+impl Add<f32> for Direction {
+    type Output = Direction;
     #[inline]
-    fn add_assign(&mut self, rhs: Self) {
-        self.0 = (self.0 + rhs.0).rem_euclid(TAU)
+    fn add(self, rhs: f32) -> Self::Output {
+        Direction((self.0 + rhs).rem_euclid(TAU))
     }
 }
 
-impl SubAssign for Direction {
+impl AddAssign<f32> for Direction {
     #[inline]
-    fn sub_assign(&mut self, rhs: Self) {
-        self.0 = (self.0 - rhs.0).rem_euclid(TAU)
+    fn add_assign(&mut self, rhs: f32) {
+        self.0 = (self.0 + rhs).rem_euclid(TAU)
+    }
+}
+
+impl SubAssign<f32> for Direction {
+    #[inline]
+    fn sub_assign(&mut self, rhs: f32) {
+        self.0 = (self.0 - rhs).rem_euclid(TAU)
     }
 }
 

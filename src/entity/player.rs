@@ -1,3 +1,4 @@
+use crate::entity::drawing_order::DrawingOrder;
 use crate::entity::player::movement::{accelerate_ship, update_movement};
 use crate::entity::player::player_actions::map_input_to_actions;
 use crate::entity::player::ship::{move_ball, Ship};
@@ -5,7 +6,7 @@ use crate::entity::player::trail::{fade_particles, spawn_trail_particles};
 use crate::images::sprite::GameImage;
 use bevy::app::{App, Startup};
 use bevy::asset::AssetServer;
-use bevy::math::Vec2;
+use bevy::math::{Vec2, Vec3};
 use bevy::prelude::{Commands, Res, Sprite, Transform, Update};
 
 pub mod movement;
@@ -23,7 +24,8 @@ pub fn create_setup(starting_pos: Vec2) -> impl Fn(Commands, Res<AssetServer>) {
         let texture = GameImage::PlayerShip.load(asset_server);
         commands.spawn((
             Sprite::from_image(texture),
-            Transform::from_translation(starting_pos.extend(1.0)),
+            Transform::from_translation(DrawingOrder::PlayerShip.to_vec_3d(starting_pos))
+                .with_scale(Vec3::splat(0.2)),
             Ship,
         ));
     }

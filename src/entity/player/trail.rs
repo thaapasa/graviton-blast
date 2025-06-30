@@ -1,3 +1,4 @@
+use crate::entity::drawing_order::DrawingOrder;
 use crate::entity::player::ship::Ship;
 use bevy::color::Color;
 use bevy::math::Vec3;
@@ -16,7 +17,8 @@ pub fn spawn_trail_particles(mut commands: Commands, query: Query<&Transform, Wi
             color: Color::srgba(1.0, 0.5, 0.2, 0.5),
             ..default()
         },
-        Transform::from_translation(pos).with_scale(Vec3::splat(2.0)),
+        Transform::from_translation(DrawingOrder::Contrail.relocate_to_z(pos))
+            .with_scale(Vec3::splat(2.0)),
         TrailParticle { lifetime: 2.0 },
     ));
 }
