@@ -29,7 +29,7 @@ impl GameSprite {
     pub fn scale(&self) -> f32 {
         match self {
             Self::PlayerShip => 0.2,
-            Self::ExhaustRing => 0.1,
+            Self::ExhaustRing => 0.05,
         }
     }
 

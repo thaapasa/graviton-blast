@@ -1,3 +1,4 @@
+use crate::core::components::Velocity;
 use bevy::prelude::*;
 use std::f32::consts::{FRAC_PI_2, PI, TAU};
 use std::ops::{Add, AddAssign, SubAssign};
@@ -41,8 +42,19 @@ impl FacingAngle {
         }
     }
 
+    #[inline]
+    pub fn to_velocity(self, magnitude: f32) -> Velocity {
+        Velocity::new(self.as_vec(magnitude))
+    }
+
     pub fn as_quat(&self) -> Quat {
         Quat::from_rotation_z(self.0)
+    }
+
+    /// Returns the direction that's opposite this direction.
+    #[inline]
+    pub fn flip(&self) -> Self {
+        FacingAngle((self.0 + PI).rem_euclid(TAU))
     }
 }
 

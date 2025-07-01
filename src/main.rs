@@ -1,5 +1,5 @@
 use crate::core::resources::PlayerActions;
-use crate::core::systems::{map_input_to_player_actions, move_all_objects};
+use crate::core::systems::{map_input_to_player_actions, move_all_objects, rotate_all_objects};
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;
 use bevy::prelude::*;
@@ -19,7 +19,7 @@ fn main() {
         .insert_resource(PlayerActions::new())
         .add_systems(Update, map_input_to_player_actions)
         .add_systems(Startup, setup)
-        .add_systems(Update, move_all_objects)
+        .add_systems(Update, (move_all_objects, rotate_all_objects))
         .run();
 }
 

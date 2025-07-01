@@ -19,4 +19,9 @@ impl DerefMut for Velocity {
 
 impl Velocity {
     pub const ZERO: Velocity = Velocity(Vec2::ZERO);
+
+    #[inline]
+    pub fn new(vec: Vec2) -> Self {
+        Self(vec)
+    }
 }
