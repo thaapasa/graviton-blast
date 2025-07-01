@@ -57,7 +57,7 @@ pub fn move_player_ship(
     let facing_angle = query.single().unwrap();
     let delta = **velocity * time.delta_secs();
     transform.translation += delta.extend(0.0);
-    transform.rotation = (*facing_angle + GameSprite::INHERENT_TEXTURE_ROTATION).as_quat();
+    transform.rotation = GameSprite::PlayerShip.sprite_rotation(*facing_angle);
 
     // Bounce off window edges
     let bounds = Vec2::new(window.width() / 2.0, window.height() / 2.0);

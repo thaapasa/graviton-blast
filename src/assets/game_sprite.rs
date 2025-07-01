@@ -1,3 +1,5 @@
+use crate::assets::DrawingOrder;
+use crate::core::components::FacingAngle;
 use bevy::prelude::*;
 use std::f32::consts::FRAC_PI_2;
 
@@ -33,7 +35,26 @@ impl GameSprite {
         format!("sprites/{}.png", self.filename())
     }
 
-    pub fn load(&self, asset_server: Res<AssetServer>) -> Handle<Image> {
+    /// Returns the rotation (quaternion) to be applied to this texture
+    /// to show it facing the given ``FacingAngle``.
+    pub fn sprite_rotation(&self, facing_angle: FacingAngle) -> Quat {
+        (facing_angle + Self::INHERENT_TEXTURE_ROTATION).as_quat()
+    }
+
+    pub fn initial_transform(&self, starting_pos: Vec2) -> Transform {
+        Transform::from_translation(DrawingOrder::from(self).to_vec_3d(starting_pos))
+            .with_scale(Vec3::splat(self.scale()))
+    }
+
+    pub fn load(&self, asset_server: &AssetServer) -> Handle<Image> {
         asset_server.load(self.path())
+    }
+}
+
+impl From<&GameSprite> for DrawingOrder {
+    fn from(value: &GameSprite) -> Self {
+        match value {
+            GameSprite::PlayerShip => DrawingOrder::PlayerShip,
+        }
     }
 }

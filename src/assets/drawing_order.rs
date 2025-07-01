@@ -1,5 +1,6 @@
 use bevy::prelude::*;
 
+/// Determines the entities that are drawn in the game and their respective z-orders.
 #[derive(Copy, Clone, Debug)]
 pub enum DrawingOrder {
     #[allow(dead_code)]

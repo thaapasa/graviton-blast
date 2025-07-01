@@ -1,4 +1,4 @@
-use crate::assets::{DrawingOrder, GameSprite};
+use crate::assets::GameSprite;
 use crate::core::components::{FacingAngle, Thrust, Velocity};
 use crate::player_ship::components::PlayerShip;
 use bevy::asset::AssetServer;
@@ -11,11 +11,9 @@ pub fn spawn_player_ship(
     starting_pos: Vec2,
     facing_angle: FacingAngle,
 ) {
-    let texture = GameSprite::PlayerShip.load(asset_server);
     commands.spawn((
-        Sprite::from_image(texture),
-        Transform::from_translation(DrawingOrder::PlayerShip.to_vec_3d(starting_pos))
-            .with_scale(Vec3::splat(GameSprite::PlayerShip.scale())),
+        Sprite::from_image(GameSprite::PlayerShip.load(&asset_server)),
+        GameSprite::PlayerShip.initial_transform(starting_pos),
         PlayerShip,
         facing_angle,
         Thrust::ZERO,
