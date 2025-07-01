@@ -1,20 +1,9 @@
-use crate::data::Rotation;
-use bevy::prelude::*;
+use crate::core::resources::PlayerActions;
+use crate::core::Rotation;
+use bevy::input::ButtonInput;
+use bevy::prelude::{KeyCode, Res, ResMut};
 
-#[derive(Default, Resource)]
-pub struct PlayerActions {
-    pub rotate: Option<Rotation>,
-    pub thrust: Option<bool>,
-    pub fire: bool,
-}
-
-impl PlayerActions {
-    pub fn new() -> Self {
-        Self::default()
-    }
-}
-
-pub fn map_input_to_actions(
+pub fn map_input_to_player_actions(
     keyboard: Res<ButtonInput<KeyCode>>,
     mut actions: ResMut<PlayerActions>,
 ) {

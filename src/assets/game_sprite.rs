@@ -1,14 +1,12 @@
 use bevy::prelude::*;
 use std::f32::consts::FRAC_PI_2;
-use strum_macros::{Display, EnumString};
 
-#[derive(Debug, EnumString, PartialEq, Eq, Clone, Copy, Display)]
-pub enum GameImage {
-    #[strum(to_string = "player-ship.png")]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+pub enum GameSprite {
     PlayerShip,
 }
 
-impl GameImage {
+impl GameSprite {
     /// Returns the rotation (in radians) required to apply to the texture to make
     /// it correspond with the game's natural (mathematical) rotation, where 0 points
     /// to positive X.
@@ -17,8 +15,22 @@ impl GameImage {
     pub const INHERENT_TEXTURE_ROTATION: f32 = -FRAC_PI_2;
 
     #[inline]
+    pub fn filename(&self) -> &str {
+        match self {
+            Self::PlayerShip => "player-ship",
+        }
+    }
+
+    #[inline]
+    pub fn scale(&self) -> f32 {
+        match self {
+            Self::PlayerShip => 0.2,
+        }
+    }
+
+    #[inline]
     fn path(&self) -> String {
-        format!("images/{}", self)
+        format!("sprites/{}.png", self.filename())
     }
 
     pub fn load(&self, asset_server: Res<AssetServer>) -> Handle<Image> {

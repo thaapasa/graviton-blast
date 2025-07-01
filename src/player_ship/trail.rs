@@ -1,15 +1,10 @@
-use crate::entity::drawing_order::DrawingOrder;
-use crate::entity::player::ship::Ship;
+use crate::assets::DrawingOrder;
+use crate::player_ship::components::{PlayerShip, TrailParticle};
 use bevy::color::Color;
 use bevy::math::Vec3;
 use bevy::prelude::*;
 
-#[derive(Component)]
-pub struct TrailParticle {
-    lifetime: f32,
-}
-
-pub fn spawn_trail_particles(mut commands: Commands, query: Query<&Transform, With<Ship>>) {
+pub fn spawn_trail_particles(mut commands: Commands, query: Query<&Transform, With<PlayerShip>>) {
     let pos = query.single().unwrap().translation;
 
     commands.spawn((
