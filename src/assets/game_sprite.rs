@@ -6,6 +6,7 @@ use std::f32::consts::FRAC_PI_2;
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameSprite {
     PlayerShip,
+    ExhaustRing,
 }
 
 impl GameSprite {
@@ -20,6 +21,7 @@ impl GameSprite {
     pub fn filename(&self) -> &str {
         match self {
             Self::PlayerShip => "player-ship",
+            Self::ExhaustRing => "exhaust",
         }
     }
 
@@ -27,6 +29,7 @@ impl GameSprite {
     pub fn scale(&self) -> f32 {
         match self {
             Self::PlayerShip => 0.2,
+            Self::ExhaustRing => 0.1,
         }
     }
 
@@ -55,6 +58,7 @@ impl From<&GameSprite> for DrawingOrder {
     fn from(value: &GameSprite) -> Self {
         match value {
             GameSprite::PlayerShip => DrawingOrder::PlayerShip,
+            GameSprite::ExhaustRing => DrawingOrder::EngineTrail,
         }
     }
 }

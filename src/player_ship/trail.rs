@@ -1,31 +1,44 @@
-use crate::assets::DrawingOrder;
+use crate::assets::{DrawingOrder, GameSprite};
+use crate::core::resources::PlayerActions;
 use crate::player_ship::components::{PlayerShip, TrailParticle};
-use bevy::color::Color;
 use bevy::math::Vec3;
 use bevy::prelude::*;
 
-pub fn spawn_trail_particles(mut commands: Commands, query: Query<&Transform, With<PlayerShip>>) {
+const PARTICLE_LIFETIME_SECS: f32 = 1.0;
+
+pub fn spawn_trail_particles(
+    mut commands: Commands,
+    query: Query<&Transform, With<PlayerShip>>,
+    asset_server: Res<AssetServer>,
+    actions: Res<PlayerActions>,
+) {
+    match actions.thrust {
+        Some(true) => (),
+        _ => return,
+    }
     let pos = query.single().unwrap().translation;
 
     commands.spawn((
-        Sprite {
-            color: Color::srgba(1.0, 0.5, 0.2, 0.5),
-            ..default()
+        Sprite::from_image(GameSprite::ExhaustRing.load(&asset_server)),
+        Transform::from_translation(DrawingOrder::EngineTrail.relocate_to_z(pos))
+            .with_scale(Vec3::splat(GameSprite::ExhaustRing.scale())),
+        TrailParticle {
+            lifetime: PARTICLE_LIFETIME_SECS,
         },
-        Transform::from_translation(DrawingOrder::Contrail.relocate_to_z(pos))
-            .with_scale(Vec3::splat(2.0)),
-        TrailParticle { lifetime: 2.0 },
     ));
 }
 
 pub fn fade_particles(
     mut commands: Commands,
     time: Res<Time>,
-    mut query: Query<(Entity, &mut TrailParticle, &mut Sprite)>,
+    mut query: Query<(Entity, &mut Transform, &mut TrailParticle, &mut Sprite)>,
 ) {
-    for (entity, mut particle, mut sprite) in &mut query {
+    for (entity, mut transform, mut particle, mut sprite) in &mut query {
         particle.lifetime -= time.delta_secs();
-        sprite.color.set_alpha(particle.lifetime / 2.0);
+        sprite
+            .color
+            .set_alpha(0.8 * particle.lifetime / PARTICLE_LIFETIME_SECS);
+        transform.scale *= 1.0 + time.delta_secs() * 2.0;
 
         if particle.lifetime <= 0.0 {
             commands.entity(entity).despawn();

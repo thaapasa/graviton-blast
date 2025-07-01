@@ -5,7 +5,10 @@ use bevy::prelude::*;
 pub enum DrawingOrder {
     #[allow(dead_code)]
     BlackHole,
-    Contrail,
+    /// The engine exhaust trails shown behind ships
+    EngineTrail,
+    #[allow(dead_code)]
+    EnemyShip,
     PlayerShip,
 }
 
@@ -16,8 +19,9 @@ impl DrawingOrder {
     pub fn z_order(self) -> f32 {
         match self {
             Self::BlackHole => 0.0,
-            Self::Contrail => 0.5,
-            Self::PlayerShip => 1.0,
+            Self::EngineTrail => 5.0,
+            Self::EnemyShip => 9.0,
+            Self::PlayerShip => 10.0,
         }
     }
 
