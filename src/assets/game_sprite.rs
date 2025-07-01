@@ -5,10 +5,14 @@ use std::f32::consts::FRAC_PI_2;
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameSprite {
-    PlayerShip,
-    ExhaustRing,
+    #[allow(dead_code)]
+    StarsSparse,
+    #[allow(dead_code)]
+    StarsLarge,
     #[allow(dead_code)]
     BlackHole,
+    ExhaustRing,
+    PlayerShip,
 }
 
 impl GameSprite {
@@ -22,15 +26,19 @@ impl GameSprite {
     #[inline]
     pub fn filename(&self) -> &str {
         match self {
+            Self::StarsSparse => "stars-sparse",
+            Self::StarsLarge => "stars-large",
+            Self::BlackHole => "black-hole",
             Self::PlayerShip => "player-ship",
             Self::ExhaustRing => "exhaust",
-            Self::BlackHole => "black-hole",
         }
     }
 
     #[inline]
     pub fn scale(&self) -> f32 {
         match self {
+            Self::StarsSparse => 1.0,
+            Self::StarsLarge => 1.0,
             Self::PlayerShip => 0.2,
             Self::ExhaustRing => 0.05,
             Self::BlackHole => 0.3,
@@ -61,6 +69,8 @@ impl GameSprite {
 impl From<&GameSprite> for DrawingOrder {
     fn from(value: &GameSprite) -> Self {
         match value {
+            GameSprite::StarsSparse => DrawingOrder::StarsBg,
+            GameSprite::StarsLarge => DrawingOrder::StarsFg,
             GameSprite::PlayerShip => DrawingOrder::PlayerShip,
             GameSprite::ExhaustRing => DrawingOrder::EngineTrail,
             GameSprite::BlackHole => DrawingOrder::BlackHole,

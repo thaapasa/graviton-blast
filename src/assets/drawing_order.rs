@@ -3,7 +3,8 @@ use bevy::prelude::*;
 /// Determines the entities that are drawn in the game and their respective z-orders.
 #[derive(Copy, Clone, Debug)]
 pub enum DrawingOrder {
-    #[allow(dead_code)]
+    StarsBg,
+    StarsFg,
     BlackHole,
     /// The engine exhaust trails shown behind ships
     EngineTrail,
@@ -18,10 +19,12 @@ impl DrawingOrder {
     #[inline]
     pub fn z_order(self) -> f32 {
         match self {
-            Self::BlackHole => 0.0,
-            Self::EngineTrail => 5.0,
-            Self::EnemyShip => 9.0,
-            Self::PlayerShip => 10.0,
+            Self::StarsBg => 0.0,
+            Self::StarsFg => 1.0,
+            Self::BlackHole => 5.0,
+            Self::EngineTrail => 10.0,
+            Self::EnemyShip => 40.0,
+            Self::PlayerShip => 50.0,
         }
     }
 
