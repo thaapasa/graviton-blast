@@ -7,6 +7,8 @@ use std::f32::consts::FRAC_PI_2;
 pub enum GameSprite {
     PlayerShip,
     ExhaustRing,
+    #[allow(dead_code)]
+    BlackHole,
 }
 
 impl GameSprite {
@@ -22,6 +24,7 @@ impl GameSprite {
         match self {
             Self::PlayerShip => "player-ship",
             Self::ExhaustRing => "exhaust",
+            Self::BlackHole => "black-hole",
         }
     }
 
@@ -30,6 +33,7 @@ impl GameSprite {
         match self {
             Self::PlayerShip => 0.2,
             Self::ExhaustRing => 0.05,
+            Self::BlackHole => 0.3,
         }
     }
 
@@ -59,6 +63,7 @@ impl From<&GameSprite> for DrawingOrder {
         match value {
             GameSprite::PlayerShip => DrawingOrder::PlayerShip,
             GameSprite::ExhaustRing => DrawingOrder::EngineTrail,
+            GameSprite::BlackHole => DrawingOrder::BlackHole,
         }
     }
 }
