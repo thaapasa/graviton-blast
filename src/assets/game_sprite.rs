@@ -40,7 +40,7 @@ impl GameSprite {
 
     /// Returns the rotation (quaternion) to be applied to this texture
     /// to show it facing the given ``FacingAngle``.
-    pub fn sprite_rotation(&self, facing_angle: FacingAngle) -> Quat {
+    pub fn sprite_rotation(facing_angle: FacingAngle) -> Quat {
         (facing_angle + Self::INHERENT_TEXTURE_ROTATION).as_quat()
     }
 

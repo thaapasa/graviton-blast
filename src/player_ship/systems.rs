@@ -1,4 +1,3 @@
-use crate::assets::GameSprite;
 use crate::core::components::{FacingAngle, Thrust, Velocity};
 use crate::core::resources::PlayerActions;
 use crate::core::Rotation;
@@ -47,17 +46,11 @@ pub fn accelerate_player_ship(
 
 /// Moves player ship
 pub fn move_player_ship(
-    time: Res<Time>,
-    mut tf_query: Query<(&mut Transform, &mut Velocity), With<PlayerShip>>,
-    query: Query<&FacingAngle, With<PlayerShip>>,
+    mut tf_query: Query<(&Transform, &mut Velocity), With<PlayerShip>>,
     windows: Query<&Window>,
 ) {
     let window = windows.single().unwrap();
-    let (mut transform, mut velocity) = tf_query.single_mut().unwrap();
-    let facing_angle = query.single().unwrap();
-    let delta = **velocity * time.delta_secs();
-    transform.translation += delta.extend(0.0);
-    transform.rotation = GameSprite::PlayerShip.sprite_rotation(*facing_angle);
+    let (transform, mut velocity) = tf_query.single_mut().unwrap();
 
     // Bounce off window edges
     let bounds = Vec2::new(window.width() / 2.0, window.height() / 2.0);
