@@ -2,6 +2,7 @@ use crate::core::components::Velocity;
 use bevy::prelude::*;
 use std::f32::consts::{FRAC_PI_2, PI, TAU};
 use std::ops::{Add, AddAssign, SubAssign};
+
 // 2D and 3D scenes and cameras
 // https://bevy-cheatbook.github.io/fundamentals/coords.html#coordinate-system
 //
@@ -16,7 +17,7 @@ use std::ops::{Add, AddAssign, SubAssign};
 // - For 2D, the origin (X=0.0; Y=0.0) is at the center of the screen by default.
 
 /// Facing angle, in radians
-#[derive(Component, Debug, Copy, Clone, Default, PartialEq, Reflect)]
+#[derive(Component, Debug, Copy, Clone, Default, PartialEq)]
 pub struct FacingAngle(pub f32);
 
 impl FacingAngle {

@@ -3,6 +3,8 @@ use crate::core::components::FacingAngle;
 use bevy::prelude::*;
 use std::f32::consts::FRAC_PI_2;
 
+/// A game sprite. All the sprites are rectangular and the sizes are
+/// multiples of two.
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameSprite {
     #[allow(dead_code)]
@@ -34,6 +36,7 @@ impl GameSprite {
         }
     }
 
+    /// Returns the scale this sprite should be drawn to on the game screen by default.
     #[inline]
     pub fn scale(&self) -> f32 {
         match self {
@@ -42,6 +45,17 @@ impl GameSprite {
             Self::PlayerShip => 0.2,
             Self::ExhaustRing => 0.05,
             Self::BlackHole => 0.3,
+        }
+    }
+
+    /// Returns the size of this square sprite (width and/or height, since they are both the same),
+    /// in pixels.
+    #[allow(dead_code)]
+    pub fn size(&self) -> usize {
+        match self {
+            Self::ExhaustRing => 128,
+            Self::PlayerShip | Self::BlackHole => 256,
+            Self::StarsSparse | Self::StarsLarge => 1024,
         }
     }
 
