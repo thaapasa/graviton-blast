@@ -20,6 +20,7 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins((PlayerShipPlugin, BackgroundPlugin))
+        .insert_resource(ClearColor(Color::BLACK))
         .insert_resource(PlayerActions::new())
         .add_systems(Update, map_input_to_player_actions)
         .add_systems(Startup, setup)
