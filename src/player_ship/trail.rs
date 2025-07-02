@@ -1,5 +1,5 @@
 use crate::assets::{DrawingOrder, GameSprite};
-use crate::core::components::FacingAngle;
+use crate::core::components::{FacingAngle, Velocity};
 use crate::core::resources::PlayerActions;
 use crate::player_ship::components::{PlayerShip, TrailParticle};
 use bevy::math::Vec3;
@@ -9,7 +9,7 @@ const PARTICLE_LIFETIME_SECS: f32 = 1.0;
 
 pub fn spawn_trail_particles(
     mut commands: Commands,
-    query: Query<(&Transform, &FacingAngle), With<PlayerShip>>,
+    query: Query<(&Transform, &FacingAngle, &Velocity), With<PlayerShip>>,
     asset_server: Res<AssetServer>,
     actions: Res<PlayerActions>,
 ) {
@@ -17,7 +17,7 @@ pub fn spawn_trail_particles(
         Some(true) => (),
         _ => return,
     }
-    let (transform, angle) = query.single().unwrap();
+    let (transform, angle, velocity) = query.single().unwrap();
     let pos = transform.translation;
     let trail_angle = angle.flip();
 
@@ -29,7 +29,7 @@ pub fn spawn_trail_particles(
             lifetime: PARTICLE_LIFETIME_SECS,
         },
         trail_angle,
-        trail_angle.to_velocity(200.0),
+        trail_angle.to_velocity(200.0) + *velocity,
     ));
 }
 

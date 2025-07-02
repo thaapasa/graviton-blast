@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use std::ops::{Deref, DerefMut};
+use std::ops::{Add, Deref, DerefMut};
 
 #[derive(Component, Debug, Copy, Clone, Default, PartialEq)]
 pub struct Velocity(Vec2);
@@ -23,5 +23,12 @@ impl Velocity {
     #[inline]
     pub fn new(vec: Vec2) -> Self {
         Self(vec)
+    }
+}
+
+impl Add for Velocity {
+    type Output = Velocity;
+    fn add(self, rhs: Self) -> Self::Output {
+        Velocity(self.0 + rhs.0)
     }
 }
