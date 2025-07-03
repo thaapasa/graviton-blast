@@ -15,6 +15,7 @@ mod player_ship;
 
 #[cfg(test)]
 pub mod tests;
+mod utils;
 
 fn main() {
     App::new()

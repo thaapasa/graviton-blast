@@ -5,7 +5,7 @@ use std::f32::consts::FRAC_PI_2;
 
 /// A game sprite. All the sprites are rectangular and the sizes are
 /// multiples of two.
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 pub enum GameSprite {
     #[allow(dead_code)]
     StarsSparse,
@@ -50,13 +50,18 @@ impl GameSprite {
 
     /// Returns the size of this square sprite (width and/or height, since they are both the same),
     /// in pixels.
-    #[allow(dead_code)]
+    #[inline]
     pub fn size(&self) -> usize {
         match self {
             Self::ExhaustRing => 128,
             Self::PlayerShip | Self::BlackHole => 256,
             Self::StarsSparse | Self::StarsLarge => 1024,
         }
+    }
+
+    #[inline]
+    pub fn scaled_size(&self) -> f32 {
+        (self.size() as f32) * self.scale()
     }
 
     #[inline]
