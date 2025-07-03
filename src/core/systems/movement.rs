@@ -1,6 +1,7 @@
+use bevy::prelude::*;
+
 use crate::assets::GameSprite;
 use crate::core::components::{FacingAngle, Velocity};
-use bevy::prelude::*;
 
 pub fn move_all_objects(time: Res<Time>, mut query: Query<(&mut Transform, &Velocity)>) {
     for (mut transform, velocity) in &mut query {

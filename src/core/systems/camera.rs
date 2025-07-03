@@ -1,6 +1,7 @@
-use crate::player_ship::PlayerShip;
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
+
+use crate::core::components::PlayerShip;
 
 pub fn camera_deadzone_follow(
     ship_query: Query<&Transform, With<PlayerShip>>,

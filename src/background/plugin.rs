@@ -1,5 +1,6 @@
-use crate::background::systems::{on_resize_window, relocate_parallax_background};
 use bevy::prelude::*;
+
+use crate::background::systems::{on_resize_window, relocate_parallax_background};
 
 pub struct BackgroundPlugin;
 

@@ -1,7 +1,8 @@
-use crate::core::components::Velocity;
 use bevy::prelude::*;
 use std::f32::consts::{FRAC_PI_2, PI, TAU};
 use std::ops::{Add, AddAssign, SubAssign};
+
+use crate::core::components::Velocity;
 
 // 2D and 3D scenes and cameras
 // https://bevy-cheatbook.github.io/fundamentals/coords.html#coordinate-system

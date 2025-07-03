@@ -1,6 +1,7 @@
+use bevy::prelude::*;
+
 use crate::background::ParallaxBackground;
 use crate::core::components::FacingAngle;
-use bevy::prelude::*;
 
 #[derive(Debug, Clone, Default)]
 pub struct SpawnInfo {

@@ -1,5 +1,6 @@
-use crate::core::Rotation;
 use bevy::prelude::*;
+
+use crate::core::Rotation;
 
 #[derive(Default, Resource)]
 pub struct PlayerActions {

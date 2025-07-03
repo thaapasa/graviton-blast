@@ -1,6 +1,7 @@
-use crate::assets::GameSprite;
 use bevy::prelude::*;
 use std::sync::atomic::AtomicUsize;
+
+use crate::assets::GameSprite;
 
 #[derive(Component, Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct ParallaxLayerId(usize);

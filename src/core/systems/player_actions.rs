@@ -1,7 +1,8 @@
-use crate::core::resources::PlayerActions;
-use crate::core::Rotation;
 use bevy::input::ButtonInput;
 use bevy::prelude::{KeyCode, Res, ResMut};
+
+use crate::core::resources::PlayerActions;
+use crate::core::Rotation;
 
 pub fn map_input_to_player_actions(
     keyboard: Res<ButtonInput<KeyCode>>,

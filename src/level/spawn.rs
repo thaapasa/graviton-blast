@@ -1,7 +1,8 @@
-use crate::level::level_data::LevelData;
-use crate::{background, player_ship};
 use bevy::asset::AssetServer;
 use bevy::prelude::*;
+
+use crate::level::level_data::LevelData;
+use crate::{background, player_ship};
 
 impl LevelData {
     pub fn spawn(self, mut commands: Commands, asset_server: Res<AssetServer>) {

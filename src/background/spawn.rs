@@ -1,7 +1,8 @@
-use crate::background::components::BackgroundTile;
-use crate::background::ParallaxBackground;
 use bevy::asset::AssetServer;
 use bevy::prelude::*;
+
+use crate::background::components::BackgroundTile;
+use crate::background::ParallaxBackground;
 
 /// Spawns player ship at the given position
 pub fn spawn_parallax_background(

@@ -1,7 +1,8 @@
-use crate::assets::DrawingOrder;
-use crate::core::components::FacingAngle;
 use bevy::prelude::*;
 use std::f32::consts::FRAC_PI_2;
+
+use crate::assets::DrawingOrder;
+use crate::core::components::FacingAngle;
 
 /// A game sprite. All the sprites are rectangular and the sizes are
 /// multiples of two.

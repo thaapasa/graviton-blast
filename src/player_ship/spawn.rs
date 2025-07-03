@@ -1,8 +1,8 @@
-use crate::assets::GameSprite;
-use crate::core::components::{FacingAngle, Thrust, Velocity};
-use crate::player_ship::components::PlayerShip;
 use bevy::asset::AssetServer;
 use bevy::prelude::*;
+
+use crate::assets::GameSprite;
+use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
 
 /// Spawns player ship at the given position
 pub fn spawn_player_ship(
@@ -12,9 +12,9 @@ pub fn spawn_player_ship(
     facing_angle: FacingAngle,
 ) {
     commands.spawn((
+        PlayerShip,
         Sprite::from_image(GameSprite::PlayerShip.load(asset_server)),
         GameSprite::PlayerShip.initial_transform(starting_pos),
-        PlayerShip,
         facing_angle,
         Thrust::ZERO,
         Velocity::ZERO,

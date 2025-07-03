@@ -1,9 +1,9 @@
-use crate::core::components::{FacingAngle, Thrust, Velocity};
-use crate::core::resources::PlayerActions;
-use crate::core::Rotation;
-use crate::player_ship::components::PlayerShip;
 use bevy::prelude::*;
 use std::f32::consts::{FRAC_PI_2, PI};
+
+use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
+use crate::core::resources::PlayerActions;
+use crate::core::Rotation;
 
 const ROTATION_SPEED_RADIANS_PER_SEC: f32 = PI + FRAC_PI_2;
 const FWD_THRUST: f32 = 350.0;

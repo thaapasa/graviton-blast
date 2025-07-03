@@ -1,10 +1,11 @@
+use bevy::prelude::*;
+use bevy::window::{PrimaryWindow, WindowResized};
+use std::collections::{BTreeMap, BTreeSet};
+
 use crate::background::components::{BackgroundTile, ParallaxLayerId};
 use crate::background::spawn::spawn_tile;
 use crate::background::ParallaxBackground;
 use crate::utils::{Vec2Ext, VecExt};
-use bevy::prelude::*;
-use bevy::window::{PrimaryWindow, WindowResized};
-use std::collections::{BTreeMap, BTreeSet};
 
 pub fn relocate_parallax_background(
     camera_query: Query<&Transform, With<Camera>>,
