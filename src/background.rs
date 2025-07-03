@@ -1,7 +1,8 @@
 mod components;
 mod plugin;
-pub mod spawn;
+mod spawn;
 mod systems;
 
 pub use components::ParallaxBackground;
 pub use plugin::BackgroundPlugin;
+pub use spawn::spawn_parallax_background;

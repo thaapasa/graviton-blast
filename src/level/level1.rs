@@ -9,7 +9,7 @@ impl Level1 {
         LevelData {
             background: ParallaxBackground::default_bg(),
             player_start: SpawnInfo::new(0.0, 0.0, FacingAngle::UP),
-            black_holes: vec![SpawnInfo::new(40.0, 20.0, FacingAngle::default())],
+            black_holes: vec![SpawnInfo::new(300.0, 20.0, FacingAngle::default())],
         }
     }
 }

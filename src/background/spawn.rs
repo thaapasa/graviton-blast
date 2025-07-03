@@ -24,8 +24,8 @@ pub fn spawn_tile(
     tile_texture: Handle<Image>,
 ) {
     commands.spawn((
-        Sprite::from_image(tile_texture),
         BackgroundTile { x, y },
+        Sprite::from_image(tile_texture),
         background.id,
         background.sprite.initial_transform(initial_pos),
     ));

@@ -1,7 +1,8 @@
 mod components;
 mod plugin;
-pub mod spawn;
+mod spawn;
 mod systems;
 mod trail;
 
 pub use plugin::PlayerShipPlugin;
+pub use spawn::spawn_player_ship;

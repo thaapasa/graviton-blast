@@ -2,17 +2,17 @@ use bevy::asset::AssetServer;
 use bevy::prelude::*;
 
 use crate::level::level_data::LevelData;
-use crate::{background, player_ship};
+use crate::{background, black_hole, player_ship};
 
 impl LevelData {
     pub fn spawn(self, mut commands: Commands, asset_server: Res<AssetServer>) {
         // Spawn background
         for bg in self.background {
-            background::spawn::spawn_parallax_background(&mut commands, &asset_server, bg);
+            background::spawn_parallax_background(&mut commands, &asset_server, bg);
         }
 
         // Spawn player
-        player_ship::spawn::spawn_player_ship(
+        player_ship::spawn_player_ship(
             &mut commands,
             &asset_server,
             self.player_start.as_location(),
@@ -20,8 +20,8 @@ impl LevelData {
         );
 
         // Spawn black holes
-        for _ in self.black_holes {
-            // TODO: Spawn
+        for spawn_info in self.black_holes {
+            black_hole::spawn_black_hole(&mut commands, &asset_server, spawn_info.as_location());
         }
     }
 }

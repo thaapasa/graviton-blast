@@ -23,12 +23,12 @@ pub fn spawn_trail_particles(
     let trail_angle = angle.flip();
 
     commands.spawn((
-        Sprite::from_image(GameSprite::ExhaustRing.load(&asset_server)),
-        Transform::from_translation(DrawingOrder::EngineTrail.relocate_to_z(pos))
-            .with_scale(Vec3::splat(GameSprite::ExhaustRing.scale())),
         TrailParticle {
             lifetime: PARTICLE_LIFETIME_SECS,
         },
+        Sprite::from_image(GameSprite::ExhaustRing.load(&asset_server)),
+        Transform::from_translation(DrawingOrder::EngineTrail.relocate_to_z(pos))
+            .with_scale(Vec3::splat(GameSprite::ExhaustRing.scale())),
         trail_angle,
         trail_angle.to_velocity(200.0) + *velocity,
     ));
