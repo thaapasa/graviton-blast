@@ -14,6 +14,7 @@ pub enum GameSprite {
     StarsLarge,
     #[allow(dead_code)]
     BlackHole,
+    ShotBlueBlaster,
     ExhaustRing,
     PlayerShip,
 }
@@ -32,8 +33,9 @@ impl GameSprite {
             Self::StarsSparse => "stars-sparse",
             Self::StarsLarge => "stars-large",
             Self::BlackHole => "black-hole",
-            Self::PlayerShip => "player-ship",
+            Self::ShotBlueBlaster => "shot-blue-blaster",
             Self::ExhaustRing => "exhaust",
+            Self::PlayerShip => "player-ship",
         }
     }
 
@@ -43,6 +45,7 @@ impl GameSprite {
         match self {
             Self::StarsSparse => 1.0,
             Self::StarsLarge => 1.0,
+            Self::ShotBlueBlaster => 0.2,
             Self::PlayerShip => 0.2,
             Self::ExhaustRing => 0.05,
             Self::BlackHole => 0.3,
@@ -54,7 +57,7 @@ impl GameSprite {
     #[inline]
     pub fn size(&self) -> usize {
         match self {
-            Self::ExhaustRing => 128,
+            Self::ExhaustRing | Self::ShotBlueBlaster => 128,
             Self::PlayerShip | Self::BlackHole => 256,
             Self::StarsSparse | Self::StarsLarge => 1024,
         }
@@ -91,6 +94,7 @@ impl From<&GameSprite> for DrawingOrder {
         match value {
             GameSprite::StarsSparse => DrawingOrder::StarsBg,
             GameSprite::StarsLarge => DrawingOrder::StarsFg,
+            GameSprite::ShotBlueBlaster => DrawingOrder::Projectile,
             GameSprite::PlayerShip => DrawingOrder::PlayerShip,
             GameSprite::ExhaustRing => DrawingOrder::EngineTrail,
             GameSprite::BlackHole => DrawingOrder::BlackHole,

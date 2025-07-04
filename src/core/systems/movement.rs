@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 use crate::assets::GameSprite;
-use crate::core::components::{FacingAngle, Velocity};
+use crate::core::components::{AngleFollowsVelocity, FacingAngle, Velocity};
 
 pub fn move_all_objects(time: Res<Time>, mut query: Query<(&mut Transform, &Velocity)>) {
     for (mut transform, velocity) in &mut query {
@@ -13,5 +13,15 @@ pub fn move_all_objects(time: Res<Time>, mut query: Query<(&mut Transform, &Velo
 pub fn rotate_all_objects(mut query: Query<(&mut Transform, &FacingAngle)>) {
     for (mut transform, facing_angle) in &mut query {
         transform.rotation = GameSprite::sprite_rotation(*facing_angle);
+    }
+}
+
+pub fn rotate_to_match_velocity(
+    mut query: Query<(&mut FacingAngle, &Velocity), With<AngleFollowsVelocity>>,
+) {
+    for (mut facing_angle, velocity) in &mut query {
+        if let Some(angle) = velocity.angle() {
+            *facing_angle = angle;
+        }
     }
 }

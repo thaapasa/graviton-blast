@@ -8,6 +8,7 @@ pub enum DrawingOrder {
     BlackHole,
     /// The engine exhaust trails shown behind ships
     EngineTrail,
+    Projectile,
     #[allow(dead_code)]
     EnemyShip,
     PlayerShip,
@@ -23,6 +24,7 @@ impl DrawingOrder {
             Self::StarsFg => 1.0,
             Self::BlackHole => 5.0,
             Self::EngineTrail => 10.0,
+            Self::Projectile => 30.0,
             Self::EnemyShip => 40.0,
             Self::PlayerShip => 50.0,
         }

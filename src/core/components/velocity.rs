@@ -1,3 +1,4 @@
+use crate::core::components::FacingAngle;
 use bevy::prelude::*;
 use std::ops::{Add, AddAssign, Deref, DerefMut};
 
@@ -23,6 +24,13 @@ impl Velocity {
     #[inline]
     pub fn new(vec: Vec2) -> Self {
         Self(vec)
+    }
+
+    pub fn angle(&self) -> Option<FacingAngle> {
+        if self.0 == Vec2::ZERO {
+            return None;
+        }
+        Some(FacingAngle::new(self.0.to_angle()))
     }
 }
 

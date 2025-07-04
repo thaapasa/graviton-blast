@@ -13,4 +13,7 @@ impl Mass {
     pub const fn tons(tons: f32) -> Self {
         Mass(tons * 1_000.0)
     }
+    pub const fn kg(kilos: f32) -> Self {
+        Mass(kilos)
+    }
 }

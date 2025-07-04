@@ -45,6 +45,8 @@ pub fn on_resize_window(
             let tiles = grouped.get(&bg.id).unwrap_or(&NO_TILES);
             for (_entity, _layer_id, tile) in tiles {
                 seen_tiles.insert((tile.x, tile.y));
+                // We could despawn tiles that are outside the required range here,
+                // but is it worth the effort?
             }
             for x in 0..required_tiles.0 {
                 for y in 0..required_tiles.1 {
@@ -52,14 +54,7 @@ pub fn on_resize_window(
                         continue;
                     }
                     // Add missing tile
-                    spawn_tile(
-                        &mut commands,
-                        bg,
-                        x,
-                        y,
-                        Vec2::ZERO,
-                        bg.sprite.load(&asset_server),
-                    );
+                    spawn_tile(&mut commands, bg, x, y, bg.sprite.load(&asset_server));
                 }
             }
         }

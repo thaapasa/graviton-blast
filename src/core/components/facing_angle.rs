@@ -21,6 +21,11 @@ use crate::core::components::Velocity;
 #[derive(Component, Debug, Copy, Clone, Default, PartialEq)]
 pub struct FacingAngle(pub f32);
 
+/// Marker trait. Add this to components with ``FacingAngle`` and ``Velocity``
+/// to make them automatically rotate according to their velocity.
+#[derive(Component, Debug)]
+pub struct AngleFollowsVelocity;
+
 impl FacingAngle {
     /// Right = 0 degrees = 0 radians
     #[allow(dead_code)]
@@ -34,6 +39,11 @@ impl FacingAngle {
     /// Down = 270 degrees = 3PI/2 radians
     #[allow(dead_code)]
     pub const DOWN: Self = FacingAngle(PI + FRAC_PI_2);
+
+    #[inline]
+    pub fn new(angle: f32) -> Self {
+        Self(angle.rem_euclid(TAU))
+    }
 
     #[allow(dead_code)]
     pub fn as_vec(&self, magnitude: f32) -> Vec2 {
@@ -56,7 +66,7 @@ impl FacingAngle {
     /// Returns the direction that's opposite this direction.
     #[inline]
     pub fn flip(&self) -> Self {
-        FacingAngle((self.0 + PI).rem_euclid(TAU))
+        FacingAngle::new(self.0 + PI)
     }
 }
 
