@@ -5,6 +5,7 @@ use crate::core::systems::{
     camera_deadzone_follow, map_input_to_player_actions, move_all_objects, rotate_all_objects,
     rotate_to_match_velocity,
 };
+use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;
 use crate::projectile::ProjectilePlugin;
@@ -14,6 +15,7 @@ mod assets;
 mod background;
 mod black_hole;
 mod core;
+mod enemy_ship;
 mod level;
 mod player_ship;
 mod projectile;
@@ -27,6 +29,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugins((
             PlayerShipPlugin,
+            EnemyShipPlugin,
             BackgroundPlugin,
             BlackHolePlugin,
             ProjectilePlugin,

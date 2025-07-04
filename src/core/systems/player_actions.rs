@@ -15,7 +15,7 @@ pub fn map_input_to_player_actions(
         (false, true) => actions.rotate = Some(Rotation::Clockwise),
         _ => actions.rotate = None,
     }
-    let fwd = keyboard.pressed(KeyCode::ArrowUp) || keyboard.pressed(KeyCode::Space);
+    let fwd = keyboard.pressed(KeyCode::ArrowUp);
     let bwd = keyboard.pressed(KeyCode::ArrowDown);
     match (fwd, bwd) {
         (true, false) => actions.thrust = Some(true),

@@ -17,6 +17,7 @@ pub enum GameSprite {
     ShotBlueBlaster,
     ExhaustRing,
     PlayerShip,
+    EnemyShip1,
 }
 
 impl GameSprite {
@@ -36,6 +37,7 @@ impl GameSprite {
             Self::ShotBlueBlaster => "shot-blue-blaster",
             Self::ExhaustRing => "exhaust",
             Self::PlayerShip => "player-ship",
+            Self::EnemyShip1 => "enemy-ship-1",
         }
     }
 
@@ -47,6 +49,7 @@ impl GameSprite {
             Self::StarsLarge => 1.0,
             Self::ShotBlueBlaster => 0.2,
             Self::PlayerShip => 0.2,
+            Self::EnemyShip1 => 0.2,
             Self::ExhaustRing => 0.05,
             Self::BlackHole => 0.3,
         }
@@ -58,7 +61,7 @@ impl GameSprite {
     pub fn size(&self) -> usize {
         match self {
             Self::ExhaustRing | Self::ShotBlueBlaster => 128,
-            Self::PlayerShip | Self::BlackHole => 256,
+            Self::PlayerShip | Self::EnemyShip1 | Self::BlackHole => 256,
             Self::StarsSparse | Self::StarsLarge => 1024,
         }
     }
@@ -96,6 +99,7 @@ impl From<&GameSprite> for DrawingOrder {
             GameSprite::StarsLarge => DrawingOrder::StarsFg,
             GameSprite::ShotBlueBlaster => DrawingOrder::Projectile,
             GameSprite::PlayerShip => DrawingOrder::PlayerShip,
+            GameSprite::EnemyShip1 => DrawingOrder::EnemyShip,
             GameSprite::ExhaustRing => DrawingOrder::EngineTrail,
             GameSprite::BlackHole => DrawingOrder::BlackHole,
         }

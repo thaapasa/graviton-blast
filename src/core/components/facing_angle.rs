@@ -68,6 +68,30 @@ impl FacingAngle {
     pub fn flip(&self) -> Self {
         FacingAngle::new(self.0 + PI)
     }
+
+    /// Returns the shortest angle difference between this angle and the given angle.
+    /// Returns a value in the range ``[-PI, PI]`` radians.
+    #[inline]
+    pub fn angle_diff(&self, angle: f32) -> f32 {
+        // Find angles in both rotation directions
+        let (a1, a2) = (angle - self.0, angle - (self.0 + TAU));
+        // Find Least angle diff
+        let diff = if a1.abs() <= a2.abs() { a1 } else { a2 };
+        // It might still be out of bounds, so shift to correct range
+        if diff < -PI {
+            diff + TAU
+        } else if diff > PI {
+            diff - TAU
+        } else {
+            diff
+        }
+    }
+
+    pub fn rotate_towards(&self, target_angle: f32, rotation_amount: f32) -> Self {
+        let angle_diff = self.angle_diff(target_angle);
+        let amount = angle_diff.abs().min(rotation_amount);
+        FacingAngle(self.0 + amount.copysign(angle_diff))
+    }
 }
 
 impl From<f32> for FacingAngle {
@@ -102,20 +126,26 @@ impl SubAssign<f32> for FacingAngle {
 mod tests {
     use crate::assert_vec_eq;
     use crate::core::components::FacingAngle;
-    use float_cmp::approx_eq;
+    use float_cmp::{approx_eq, assert_approx_eq};
+    use rstest::rstest;
     use std::f32::consts::{FRAC_PI_4, SQRT_2};
 
-    #[test]
-    fn test_straight_angles() {
-        assert_vec_eq!(&FacingAngle::RIGHT.as_vec(1.0), 1.0, 0.0);
-        assert_vec_eq!(&FacingAngle::UP.as_vec(1.0), 0.0, 1.0);
-        assert_vec_eq!(&FacingAngle::LEFT.as_vec(1.0), -1.0, 0.0);
-        assert_vec_eq!(&FacingAngle::DOWN.as_vec(1.0), 0.0, -1.0);
-
-        assert_vec_eq!(&FacingAngle::RIGHT.as_vec(1.5), 1.5, 0.0);
-        assert_vec_eq!(&FacingAngle::UP.as_vec(1.5), 0.0, 1.5);
-        assert_vec_eq!(&FacingAngle::LEFT.as_vec(1.5), -1.5, 0.0);
-        assert_vec_eq!(&FacingAngle::DOWN.as_vec(1.5), 0.0, -1.5);
+    #[rstest]
+    #[case(FacingAngle::RIGHT, 1.0, 1.0, 0.0)]
+    #[case(FacingAngle::UP, 1.0, 0.0, 1.0)]
+    #[case(FacingAngle::LEFT, 1.0, -1.0, 0.0)]
+    #[case(FacingAngle::DOWN, 1.0, 0.0, -1.0)]
+    #[case(FacingAngle::RIGHT, 1.5, 1.5, 0.0)]
+    #[case(FacingAngle::UP, 1.5, 0.0, 1.5)]
+    #[case(FacingAngle::LEFT, 1.5, -1.5, 0.0)]
+    #[case(FacingAngle::DOWN, 1.5, 0.0, -1.5)]
+    fn test_straight_angles(
+        #[case] angle: FacingAngle,
+        #[case] magnitude: f32,
+        #[case] x: f32,
+        #[case] y: f32,
+    ) {
+        assert_vec_eq!(&angle.as_vec(magnitude), x, y);
     }
 
     #[test]
@@ -123,5 +153,30 @@ mod tests {
         // 45 angles, "to northeast"
         // Double the magnitude to get nice, "round" numbers
         assert_vec_eq!(&FacingAngle(FRAC_PI_4).as_vec(2.0), SQRT_2, SQRT_2);
+    }
+
+    #[rstest]
+    #[case(0.0, 20.0, 20.0)]
+    #[case(0.0, 340.0, -20.0)]
+    #[case(0.0, 180.0, 180.0)]
+    #[case(45.0, 0.0, -45.0)]
+    #[case(45.0, 5.0, -40.0)]
+    #[case(45.0, 90.0, 45.0)]
+    #[case(45.0, 180.0, 135.0)]
+    #[case(45.0, 315.0, -90.0)]
+    #[case(45.0, 270.0, -135.0)]
+    #[case(270.0, 45.0, 135.0)]
+    #[case(270.0, 90.0, -180.0)]
+    #[case(270.0, 180.0, -90.0)]
+    #[case(270.0, 350.0, 80.0)]
+    #[case(300.0, 60.0, 120.0)]
+    #[case(300.0, 200.0, -100.0)]
+    fn test_angle_diff(#[case] angle: f32, #[case] target: f32, #[case] expected: f32) {
+        assert_approx_eq!(
+            f32,
+            FacingAngle(angle.to_radians()).angle_diff(target.to_radians()),
+            expected.to_radians(),
+            epsilon = 0.001
+        );
     }
 }

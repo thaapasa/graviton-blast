@@ -1,15 +1,19 @@
 use crate::background::ParallaxBackground;
 use crate::core::components::FacingAngle;
-use crate::level::level_data::{LevelData, SpawnInfo};
+use crate::core::SpawnInfo;
+use crate::enemy_ship::EnemyShipType;
+use crate::level::level_data::LevelData;
 
 pub struct Level1;
 
 impl Level1 {
     pub fn create() -> LevelData {
+        use EnemyShipType::Enemy1;
         LevelData {
             background: ParallaxBackground::default_bg(),
-            player_start: SpawnInfo::new(0.0, 0.0, FacingAngle::UP),
+            player_start: SpawnInfo::new(-400.0, -100.0, FacingAngle::UP),
             black_holes: vec![SpawnInfo::new(300.0, 20.0, FacingAngle::default())],
+            enemies: vec![(Enemy1, SpawnInfo::new(100.0, 100.0, FacingAngle::DOWN))],
         }
     }
 }

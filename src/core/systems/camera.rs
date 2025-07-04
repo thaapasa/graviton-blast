@@ -12,7 +12,7 @@ pub fn camera_deadzone_follow(
     let ship_transform = ship_query.single().unwrap();
     let mut camera_transform = camera_query.single_mut().unwrap();
 
-    let deadzone_half_size = window.size() * 0.8 / 2.0;
+    let deadzone_half_size = window.size() * 0.6 / 2.0;
     let ship_pos = ship_transform.translation.truncate();
     let cam_pos = camera_transform.translation.truncate();
 
