@@ -1,12 +1,11 @@
-use crate::assets::GameSprite;
-use crate::black_hole::components::BlackHole;
-use crate::core::components::Mass;
 use bevy::asset::AssetServer;
 use bevy::math::Vec2;
 use bevy::prelude::Commands;
 use bevy::sprite::Sprite;
 
-const BLACK_HOLE_MASS: Mass = Mass::tons(2_000_000_000.0);
+use crate::assets::GameSprite;
+use crate::black_hole::components::BlackHole;
+use crate::constants::BLACK_HOLE_MASS;
 
 pub fn spawn_black_hole(commands: &mut Commands, asset_server: &AssetServer, position: Vec2) {
     commands.spawn((

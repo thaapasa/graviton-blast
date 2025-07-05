@@ -2,9 +2,8 @@ use bevy::asset::AssetServer;
 use bevy::prelude::*;
 
 use crate::assets::GameSprite;
-use crate::core::components::{FacingAngle, Mass, PlayerShip, Thrust, Velocity};
-
-const PLAYER_SHIP_MASS: Mass = Mass::tons(3_000.0);
+use crate::constants::PLAYER_SHIP_MASS;
+use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
 
 /// Spawns player ship at the given position
 pub fn spawn_player_ship(

@@ -1,14 +1,10 @@
 use bevy::prelude::*;
-use std::f32::consts::{FRAC_PI_2, PI};
 
+use crate::constants::{PLAYER_BACKWARD_THRUST, PLAYER_FORWARD_THRUST, PLAYER_ROTATION_SPEED};
 use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
 use crate::core::resources::PlayerActions;
 use crate::core::Rotation;
 use crate::projectile::{spawn_projectile, ProjectileType};
-
-const ROTATION_SPEED_RADIANS_PER_SEC: f32 = PI + FRAC_PI_2;
-const FWD_THRUST: f32 = 350.0;
-const BWD_THRUST: f32 = -250.0;
 
 /// Updates player ship movement based on player actions
 pub fn update_player_movement(
@@ -20,13 +16,13 @@ pub fn update_player_movement(
     let (mut thrust, mut facing_angle) = query.single_mut().unwrap();
 
     *thrust = match actions.thrust {
-        Some(true) => Thrust(FWD_THRUST),
-        Some(false) => Thrust(BWD_THRUST),
+        Some(true) => Thrust(PLAYER_FORWARD_THRUST),
+        Some(false) => Thrust(PLAYER_BACKWARD_THRUST),
         None => Thrust::ZERO,
     };
     match actions.rotate {
-        Some(Rotation::Clockwise) => *facing_angle -= ROTATION_SPEED_RADIANS_PER_SEC * elapsed,
-        Some(Rotation::Anticlockwise) => *facing_angle += ROTATION_SPEED_RADIANS_PER_SEC * elapsed,
+        Some(Rotation::Clockwise) => *facing_angle -= PLAYER_ROTATION_SPEED * elapsed,
+        Some(Rotation::Anticlockwise) => *facing_angle += PLAYER_ROTATION_SPEED * elapsed,
         _ => (),
     }
 }

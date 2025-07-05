@@ -1,6 +1,8 @@
-use crate::assets::GameSprite;
-use crate::core::components::Mass;
 use bevy::prelude::*;
+
+use crate::assets::GameSprite;
+use crate::constants::PROJECTILE_BLASTER_MASS;
+use crate::core::components::Mass;
 
 pub enum ProjectileType {
     /// Basic player ship blaster fire (blue electric bolt)
@@ -51,7 +53,7 @@ impl ProjectileType {
 
     pub fn mass(&self) -> Mass {
         match self {
-            Self::PlayerBlaster => Mass::kg(1.0),
+            Self::PlayerBlaster => PROJECTILE_BLASTER_MASS,
         }
     }
 }

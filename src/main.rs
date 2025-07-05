@@ -1,3 +1,5 @@
+use bevy::prelude::*;
+
 use crate::background::BackgroundPlugin;
 use crate::black_hole::BlackHolePlugin;
 use crate::core::resources::PlayerActions;
@@ -9,11 +11,11 @@ use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;
 use crate::projectile::ProjectilePlugin;
-use bevy::prelude::*;
 
 mod assets;
 mod background;
 mod black_hole;
+mod constants;
 mod core;
 mod enemy_ship;
 mod level;

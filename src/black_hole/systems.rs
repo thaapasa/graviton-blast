@@ -1,10 +1,8 @@
-use crate::black_hole::components::BlackHole;
-use crate::core::components::{Mass, Velocity};
 use bevy::prelude::*;
 
-const MIN_DISTANCE_SQ: f32 = 0.00000001;
-const GRAVITATIONAL_CONSTANT: f32 = 1.0e-5;
-const MAX_APPLIED_FORCE: f32 = 1000.0;
+use crate::black_hole::components::BlackHole;
+use crate::constants::{GRAVITATIONAL_CONSTANT, MAX_GRAVITY_FORCE, MIN_DISTANCE_SQ};
+use crate::core::components::{Mass, Velocity};
 
 pub fn apply_gravity(
     time: Res<Time>,
@@ -18,7 +16,7 @@ pub fn apply_gravity(
 
             // Ship mass cancels out
             let force_magnitude = (GRAVITATIONAL_CONSTANT * bh_mass.value() / distance_squared)
-                .min(MAX_APPLIED_FORCE);
+                .min(MAX_GRAVITY_FORCE);
             let acceleration = dir.normalize() * force_magnitude;
 
             *velocity += acceleration * time.delta_secs();

@@ -1,4 +1,5 @@
 use crate::assets::GameSprite;
+use crate::constants::ENEMY_SHIP_1_MASS;
 use crate::core::components::Mass;
 use bevy::prelude::Component;
 
@@ -19,7 +20,7 @@ impl EnemyShipType {
 
     pub fn mass(&self) -> Mass {
         match self {
-            Self::Enemy1 => Mass::kg(1500.0),
+            Self::Enemy1 => ENEMY_SHIP_1_MASS,
         }
     }
 }
