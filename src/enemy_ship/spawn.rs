@@ -1,4 +1,4 @@
-use crate::core::components::Velocity;
+use crate::core::components::{Thrust, Velocity};
 use crate::core::SpawnInfo;
 use crate::enemy_ship::components::{EnemyShip, EnemyShipType};
 use bevy::prelude::*;
@@ -16,6 +16,7 @@ pub fn spawn_enemy_ship(
         Velocity::default(),
         spawn_info.angle,
         sprite.initial_transform(spawn_info.as_location(), spawn_info.angle),
+        Thrust::ZERO,
         enemy_type.mass(),
         enemy_type.max_velocity(),
     ));

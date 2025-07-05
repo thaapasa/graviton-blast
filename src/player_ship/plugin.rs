@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 use crate::player_ship::systems::{
-    accelerate_player_ship, fire_player_weapons, update_player_movement,
+    fire_player_weapons, update_player_movement,
 };
 use crate::player_ship::trail::{fade_particles, spawn_trail_particles};
 
@@ -13,7 +13,6 @@ impl Plugin for PlayerShipPlugin {
             Update,
             (
                 update_player_movement,
-                accelerate_player_ship,
                 fire_player_weapons,
                 spawn_trail_particles,
                 fade_particles,

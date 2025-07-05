@@ -1,8 +1,21 @@
 use bevy::prelude::*;
 
 use crate::assets::GameSprite;
-use crate::core::components::{AngleFollowsVelocity, FacingAngle, MaxVelocity, Velocity};
+use crate::core::components::{
+    AngleFollowsVelocity, FacingAngle, MaxVelocity, Thrust, Velocity,
+};
 use crate::utils::Vec2Ext;
+
+pub fn accelerate_objects(
+    time: Res<Time>,
+    mut query: Query<(&mut Velocity, &Thrust, &FacingAngle)>,
+) {
+    for (mut velocity, thrust, facing_angle) in &mut query {
+        if thrust.has_thrust() {
+            **velocity += facing_angle.as_vec(**thrust * time.delta_secs());
+        }
+    }
+}
 
 pub fn move_all_objects(time: Res<Time>, mut query: Query<(&mut Transform, &Velocity)>) {
     for (mut transform, velocity) in &mut query {

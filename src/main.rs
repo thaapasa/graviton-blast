@@ -4,8 +4,8 @@ use crate::background::BackgroundPlugin;
 use crate::black_hole::BlackHolePlugin;
 use crate::core::resources::PlayerActions;
 use crate::core::systems::{
-    camera_deadzone_follow, limit_velocity, map_input_to_player_actions, move_all_objects,
-    rotate_all_objects, rotate_to_match_velocity,
+    accelerate_objects, camera_deadzone_follow, limit_velocity, map_input_to_player_actions,
+    move_all_objects, quit_if_requested, rotate_all_objects, rotate_to_match_velocity,
 };
 use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
@@ -38,9 +38,9 @@ fn main() {
         ))
         .insert_resource(ClearColor(Color::BLACK))
         .insert_resource(PlayerActions::new())
-        .add_systems(Update, map_input_to_player_actions)
+        .add_systems(Update, (map_input_to_player_actions, quit_if_requested))
         .add_systems(Startup, setup)
-        .add_systems(Update, rotate_to_match_velocity)
+        .add_systems(Update, (rotate_to_match_velocity, accelerate_objects))
         .add_systems(
             Update,
             (limit_velocity, move_all_objects, rotate_all_objects),

@@ -45,7 +45,6 @@ impl FacingAngle {
         Self(angle.rem_euclid(TAU))
     }
 
-    #[allow(dead_code)]
     pub fn as_vec(&self, magnitude: f32) -> Vec2 {
         if magnitude.is_sign_negative() {
             -Vec2::from_angle(self.0) * -magnitude

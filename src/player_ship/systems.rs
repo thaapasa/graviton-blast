@@ -46,20 +46,6 @@ pub fn fire_player_weapons(
     }
 }
 
-pub fn accelerate_player_ship(
-    time: Res<Time>,
-    mut vel_query: Query<&mut Velocity, With<PlayerShip>>,
-    query: Query<(&Thrust, &FacingAngle), With<PlayerShip>>,
-) {
-    let elapsed = time.delta_secs();
-    let (thrust, facing_angle) = query.single().unwrap();
-    let mut velocity = vel_query.single_mut().unwrap();
-
-    if thrust.has_thrust() {
-        **velocity += facing_angle.as_vec(**thrust * elapsed);
-    }
-}
-
 pub fn fire_blaster(
     commands: &mut Commands,
     asset_server: &AssetServer,

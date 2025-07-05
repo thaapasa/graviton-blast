@@ -1,5 +1,5 @@
 use bevy::input::ButtonInput;
-use bevy::prelude::{KeyCode, Res, ResMut};
+use bevy::prelude::*;
 
 use crate::core::resources::PlayerActions;
 use crate::core::Rotation;
@@ -23,4 +23,11 @@ pub fn map_input_to_player_actions(
         _ => actions.thrust = None,
     }
     actions.fire = keyboard.just_pressed(KeyCode::Space);
+    actions.quit = keyboard.just_pressed(KeyCode::Escape);
+}
+
+pub fn quit_if_requested(actions: Res<PlayerActions>, mut exit: EventWriter<AppExit>) {
+    if actions.quit {
+        exit.write(AppExit::Success);
+    }
 }
