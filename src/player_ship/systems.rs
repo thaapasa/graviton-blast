@@ -36,13 +36,12 @@ pub fn fire_player_weapons(
 ) {
     if actions.fire {
         let (velocity, facing_angle, transform) = query.single().unwrap();
-        spawn_projectile(
+        fire_blaster(
             &mut commands,
             &asset_server,
-            ProjectileType::PlayerBlaster,
             transform.translation.truncate(),
-            *facing_angle,
             *velocity,
+            *facing_angle,
         );
     }
 }
@@ -58,5 +57,25 @@ pub fn accelerate_player_ship(
 
     if thrust.has_thrust() {
         **velocity += facing_angle.as_vec(**thrust * elapsed);
+    }
+}
+
+pub fn fire_blaster(
+    commands: &mut Commands,
+    asset_server: &AssetServer,
+    position: Vec2,
+    velocity: Velocity,
+    facing_angle: FacingAngle,
+) {
+    for i in [-1.0, 1.0] {
+        let offset = Vec2::new(0.0, i * 13.0);
+        spawn_projectile(
+            commands,
+            asset_server,
+            ProjectileType::PlayerBlaster,
+            position + facing_angle.rotate(offset),
+            velocity,
+            facing_angle,
+        );
     }
 }

@@ -15,7 +15,7 @@ pub fn spawn_player_ship(
     commands.spawn((
         PlayerShip,
         Sprite::from_image(GameSprite::PlayerShip.load(asset_server)),
-        GameSprite::PlayerShip.initial_transform(starting_pos),
+        GameSprite::PlayerShip.initial_transform(starting_pos, facing_angle),
         facing_angle,
         Thrust::ZERO,
         Velocity::ZERO,

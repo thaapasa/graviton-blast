@@ -82,9 +82,10 @@ impl GameSprite {
         (facing_angle + Self::INHERENT_TEXTURE_ROTATION).as_quat()
     }
 
-    pub fn initial_transform(&self, starting_pos: Vec2) -> Transform {
+    pub fn initial_transform(&self, starting_pos: Vec2, rotation: FacingAngle) -> Transform {
         Transform::from_translation(DrawingOrder::from(self).to_vec_3d(starting_pos))
             .with_scale(Vec3::splat(self.scale()))
+            .with_rotation(Self::sprite_rotation(rotation))
     }
 
     pub fn load(&self, asset_server: &AssetServer) -> Handle<Image> {

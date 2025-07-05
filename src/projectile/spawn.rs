@@ -7,8 +7,8 @@ pub fn spawn_projectile(
     asset_server: &AssetServer,
     projectile_type: ProjectileType,
     position: Vec2,
-    facing_angle: FacingAngle,
     velocity: Velocity,
+    facing_angle: FacingAngle,
 ) {
     let sprite = projectile_type.sprite();
     commands.spawn((
@@ -17,7 +17,7 @@ pub fn spawn_projectile(
         velocity + facing_angle.to_velocity(projectile_type.speed()),
         facing_angle,
         AngleFollowsVelocity,
-        sprite.initial_transform(position),
+        sprite.initial_transform(position, facing_angle),
         projectile_type.mass(),
     ));
 }

@@ -69,6 +69,11 @@ impl FacingAngle {
         FacingAngle::new(self.0 + PI)
     }
 
+    #[inline]
+    pub fn rotate(&self, vec: Vec2) -> Vec2 {
+        self.as_vec(1.0).rotate(vec)
+    }
+
     /// Returns the shortest angle difference between this angle and the given angle.
     /// Returns a value in the range ``[-PI, PI]`` radians.
     #[inline]

@@ -43,8 +43,8 @@ pub fn fade_particles(
         particle.lifetime -= time.delta_secs();
         sprite
             .color
-            .set_alpha(0.5 * particle.lifetime / PARTICLE_LIFETIME_SECS);
-        transform.scale *= 1.0 + time.delta_secs() * 2.0;
+            .set_alpha(0.2 * particle.lifetime / PARTICLE_LIFETIME_SECS);
+        transform.scale *= 1.0 + time.delta_secs() * 2.5;
 
         if particle.lifetime <= 0.0 {
             commands.entity(entity).despawn();

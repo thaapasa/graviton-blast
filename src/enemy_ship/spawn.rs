@@ -15,7 +15,7 @@ pub fn spawn_enemy_ship(
         Sprite::from_image(sprite.load(asset_server)),
         Velocity::default(),
         spawn_info.angle,
-        sprite.initial_transform(spawn_info.as_location()),
+        sprite.initial_transform(spawn_info.as_location(), spawn_info.angle),
         enemy_type.mass(),
         enemy_type.max_velocity(),
     ));

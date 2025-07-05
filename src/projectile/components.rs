@@ -47,7 +47,7 @@ impl ProjectileType {
 
     pub fn speed(&self) -> f32 {
         match self {
-            Self::PlayerBlaster => 700.0,
+            Self::PlayerBlaster => 1200.0,
         }
     }
 

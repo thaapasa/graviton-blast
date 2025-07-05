@@ -3,6 +3,7 @@ use bevy::prelude::*;
 
 use crate::background::components::BackgroundTile;
 use crate::background::ParallaxBackground;
+use crate::core::components::FacingAngle;
 
 pub fn spawn_parallax_background(
     commands: &mut Commands,
@@ -28,6 +29,8 @@ pub fn spawn_tile(
         BackgroundTile { x, y },
         Sprite::from_image(tile_texture),
         background.id,
-        background.sprite.initial_transform(Vec2::ZERO),
+        background
+            .sprite
+            .initial_transform(Vec2::ZERO, FacingAngle::UP),
     ));
 }
