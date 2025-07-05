@@ -17,5 +17,6 @@ pub fn spawn_enemy_ship(
         spawn_info.angle,
         sprite.initial_transform(spawn_info.as_location()),
         enemy_type.mass(),
+        enemy_type.max_velocity(),
     ));
 }

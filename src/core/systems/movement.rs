@@ -1,7 +1,8 @@
 use bevy::prelude::*;
 
 use crate::assets::GameSprite;
-use crate::core::components::{AngleFollowsVelocity, FacingAngle, Velocity};
+use crate::core::components::{AngleFollowsVelocity, FacingAngle, MaxVelocity, Velocity};
+use crate::utils::Vec2Ext;
 
 pub fn move_all_objects(time: Res<Time>, mut query: Query<(&mut Transform, &Velocity)>) {
     for (mut transform, velocity) in &mut query {
@@ -23,5 +24,11 @@ pub fn rotate_to_match_velocity(
         if let Some(angle) = velocity.angle() {
             *facing_angle = angle;
         }
+    }
+}
+
+pub fn limit_velocity(mut query: Query<(&mut Velocity, &MaxVelocity)>) {
+    for (mut velocity, max_velocity) in &mut query {
+        **velocity = velocity.clamp_max_length_squared(max_velocity.squared());
     }
 }

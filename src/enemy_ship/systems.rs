@@ -1,3 +1,4 @@
+use crate::constants::ENEMY_SHIP_1_MAX_THRUST;
 use crate::core::components::{FacingAngle, PlayerShip, Velocity};
 use crate::enemy_ship::components::EnemyShip;
 use bevy::prelude::*;
@@ -20,9 +21,12 @@ pub fn move_enemy_ships(
         // Rotate to face player
         *facing_angle = facing_angle.rotate_towards(to_player, 3.0 * time.delta_secs());
 
-        if facing_angle.angle_diff(to_player).abs() < FRAC_PI_4 {
+        let angle_diff = facing_angle.angle_diff(to_player).abs();
+        if angle_diff < FRAC_PI_4 {
             // Thrust towards player
-            *velocity += *facing_angle.to_velocity(400.0 * time.delta_secs());
+            *velocity += *facing_angle.to_velocity(
+                (FRAC_PI_4 - angle_diff) * ENEMY_SHIP_1_MAX_THRUST * time.delta_secs(),
+            );
         }
     }
 }
