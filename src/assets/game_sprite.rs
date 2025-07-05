@@ -10,14 +10,14 @@ use crate::core::components::FacingAngle;
 pub enum GameSprite {
     #[allow(dead_code)]
     StarsSparse,
-    #[allow(dead_code)]
     StarsLarge,
-    #[allow(dead_code)]
     BlackHole,
     ShotBlueBlaster,
     ExhaustRing,
-    PlayerShip,
+    #[allow(dead_code)]
+    Dart,
     EnemyShip1,
+    PlayerShip,
 }
 
 impl GameSprite {
@@ -36,8 +36,9 @@ impl GameSprite {
             Self::BlackHole => "black-hole",
             Self::ShotBlueBlaster => "shot-blue-blaster",
             Self::ExhaustRing => "exhaust",
-            Self::PlayerShip => "player-ship",
+            Self::Dart => "dart",
             Self::EnemyShip1 => "enemy-ship-1",
+            Self::PlayerShip => "player-ship",
         }
     }
 
@@ -51,6 +52,7 @@ impl GameSprite {
             Self::PlayerShip => 0.2,
             Self::EnemyShip1 => 0.2,
             Self::ExhaustRing => 0.05,
+            Self::Dart => 0.2,
             Self::BlackHole => 0.3,
         }
     }
@@ -60,7 +62,7 @@ impl GameSprite {
     #[inline]
     pub fn size(&self) -> usize {
         match self {
-            Self::ExhaustRing | Self::ShotBlueBlaster => 128,
+            Self::ExhaustRing | Self::ShotBlueBlaster | Self::Dart => 128,
             Self::PlayerShip | Self::EnemyShip1 | Self::BlackHole => 256,
             Self::StarsSparse | Self::StarsLarge => 1024,
         }
@@ -96,13 +98,14 @@ impl GameSprite {
 impl From<&GameSprite> for DrawingOrder {
     fn from(value: &GameSprite) -> Self {
         match value {
-            GameSprite::StarsSparse => DrawingOrder::StarsBg,
-            GameSprite::StarsLarge => DrawingOrder::StarsFg,
-            GameSprite::ShotBlueBlaster => DrawingOrder::Projectile,
-            GameSprite::PlayerShip => DrawingOrder::PlayerShip,
-            GameSprite::EnemyShip1 => DrawingOrder::EnemyShip,
-            GameSprite::ExhaustRing => DrawingOrder::EngineTrail,
-            GameSprite::BlackHole => DrawingOrder::BlackHole,
+            GameSprite::StarsSparse => Self::StarsBg,
+            GameSprite::StarsLarge => Self::StarsFg,
+            GameSprite::ShotBlueBlaster => Self::Projectile,
+            GameSprite::PlayerShip => Self::PlayerShip,
+            GameSprite::EnemyShip1 => Self::EnemyShip,
+            GameSprite::Dart => Self::Dart,
+            GameSprite::ExhaustRing => Self::EngineTrail,
+            GameSprite::BlackHole => Self::BlackHole,
         }
     }
 }

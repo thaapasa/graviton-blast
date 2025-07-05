@@ -10,4 +10,5 @@ pub struct LevelData {
     pub player_start: SpawnInfo,
     pub black_holes: Vec<SpawnInfo>,
     pub enemies: Vec<(EnemyShipType, SpawnInfo)>,
+    pub dart_clouds: Vec<(SpawnInfo, usize)>,
 }

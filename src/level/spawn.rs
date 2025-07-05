@@ -2,7 +2,7 @@ use bevy::asset::AssetServer;
 use bevy::prelude::*;
 
 use crate::level::level_data::LevelData;
-use crate::{background, black_hole, enemy_ship, player_ship};
+use crate::{background, black_hole, dart_cloud, enemy_ship, player_ship};
 
 impl LevelData {
     pub fn spawn(self, mut commands: Commands, asset_server: Res<AssetServer>) {
@@ -27,6 +27,11 @@ impl LevelData {
         // Spawn enemies
         for (enemy_type, pos) in self.enemies {
             enemy_ship::spawn_enemy_ship(&mut commands, &asset_server, enemy_type, pos);
+        }
+
+        // Spawn dart clouds
+        for (pos, size) in self.dart_clouds {
+            dart_cloud::spawn_dart_cloud(&mut commands, &asset_server, pos, size);
         }
     }
 }

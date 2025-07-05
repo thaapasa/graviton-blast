@@ -2,6 +2,10 @@ use std::f32::consts::{FRAC_PI_2, PI};
 
 use crate::core::components::{Mass, MaxVelocity};
 
+/// Golden angle = `π * (3 - √5)` radians
+#[allow(clippy::excessive_precision)]
+pub const GOLDEN_ANGLE: f32 = 137.5077640500378546463487f32;
+
 // Radians per second
 pub const PLAYER_ROTATION_SPEED: f32 = PI + FRAC_PI_2;
 pub const PLAYER_FORWARD_THRUST: f32 = 350.0;

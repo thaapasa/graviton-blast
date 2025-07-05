@@ -13,6 +13,7 @@ impl Level1 {
             player_start: SpawnInfo::new(-400.0, -100.0, FacingAngle::UP),
             black_holes: vec![SpawnInfo::new(300.0, 20.0, FacingAngle::default())],
             enemies: vec![(Enemy1, SpawnInfo::new(100.0, 100.0, FacingAngle::DOWN))],
+            dart_clouds: vec![(SpawnInfo::new(-200.0, 50.0, FacingAngle::default()), 50)],
         }
     }
 }

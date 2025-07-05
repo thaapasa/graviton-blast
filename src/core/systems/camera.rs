@@ -17,15 +17,11 @@ pub fn camera_deadzone_follow(
     let cam_pos = camera_transform.translation.truncate();
 
     let delta = ship_pos - cam_pos;
-    let mut cam_move = Vec2::ZERO;
 
     if delta.x.abs() > deadzone_half_size.x {
-        cam_move.x = delta.x - deadzone_half_size.x * delta.x.signum();
+        camera_transform.translation.x += delta.x - deadzone_half_size.x * delta.x.signum();
     }
     if delta.y.abs() > deadzone_half_size.y {
-        cam_move.y = delta.y - deadzone_half_size.y * delta.y.signum();
+        camera_transform.translation.y += delta.y - deadzone_half_size.y * delta.y.signum();
     }
-
-    camera_transform.translation.x += cam_move.x;
-    camera_transform.translation.y += cam_move.y;
 }

@@ -17,6 +17,7 @@ mod background;
 mod black_hole;
 mod constants;
 mod core;
+mod dart_cloud;
 mod enemy_ship;
 mod level;
 mod player_ship;

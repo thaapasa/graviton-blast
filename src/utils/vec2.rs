@@ -1,11 +1,20 @@
+use crate::constants::GOLDEN_ANGLE;
 use bevy::prelude::*;
 
 pub trait Vec2Ext {
+    /// Returns a vector with the least nonnegative remainder of each element (mod rhs).
     fn rem_euclid_scalar(&self, rhs: f32) -> Vec2;
 
     /// Clamps the length of `self` to `max_length_squared` if it exceeds it,
     /// using only squared operations.
     fn clamp_max_length_squared(self, max_length_squared: f32) -> Vec2;
+
+    /// Returns the ``n``th position about evenly spread around ``Vec2::ZERO``.
+    /// This can be used to place objects in different positions so that they will be about
+    /// evenly spread, regardless of how many objects are placed.
+    ///
+    /// Uses a Fermat's spiral to calculate the positions.
+    fn spiral_spread(n: usize) -> Vec2;
 }
 
 impl Vec2Ext for Vec2 {
@@ -24,6 +33,17 @@ impl Vec2Ext for Vec2 {
         } else {
             self
         }
+    }
+
+    fn spiral_spread(n: usize) -> Vec2 {
+        let n = n as f32;
+        let radius = n.sqrt(); // grows like sqrt(n) for more uniform density
+        let angle = n * GOLDEN_ANGLE;
+
+        let x = radius * angle.cos();
+        let y = radius * angle.sin();
+
+        Vec2::new(x, y)
     }
 }
 
