@@ -1,3 +1,4 @@
+use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
 
 use crate::background::BackgroundPlugin;
@@ -8,7 +9,7 @@ use crate::core::systems::{
     accelerate_objects, camera_deadzone_follow, limit_velocity, map_input_to_player_actions,
     move_all_objects, quit_if_requested, rotate_all_objects, rotate_to_match_velocity,
 };
-use crate::core::UpdateSet;
+use crate::core::{fps, UpdateSet};
 use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;
@@ -32,8 +33,11 @@ pub mod tests;
 fn main() {
     App::new()
         .configure_sets(Update, UpdateSet::schedule())
+        .insert_resource(ClearColor(Color::BLACK))
         .insert_resource(Time::<Fixed>::from_hz(FIXED_UPDATE_RATE_HZ))
+        .insert_resource(PlayerActions::new())
         .add_plugins(DefaultPlugins)
+        .add_plugins(FrameTimeDiagnosticsPlugin::default())
         .add_plugins((
             PlayerShipPlugin,
             EnemyShipPlugin,
@@ -41,8 +45,6 @@ fn main() {
             BlackHolePlugin,
             ProjectilePlugin,
         ))
-        .insert_resource(ClearColor(Color::BLACK))
-        .insert_resource(PlayerActions::new())
         .add_systems(Startup, setup)
         .add_systems(
             FixedUpdate,
@@ -58,14 +60,18 @@ fn main() {
         )
         .add_systems(
             Update,
-            camera_deadzone_follow.in_set(UpdateSet::PostMovement),
+            (
+                fps::update_fps.in_set(UpdateSet::Finalize),
+                camera_deadzone_follow.in_set(UpdateSet::PostMovement),
+            ),
         )
         .run();
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
-    // Camera
     commands.spawn(Camera2d);
+    fps::spawn_fps_counter(&mut commands);
+
     // Start with level 1
-    Level1::create().spawn(commands, asset_server);
+    Level1::create().spawn(&mut commands, asset_server);
 }

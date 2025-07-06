@@ -1,13 +1,13 @@
 use bevy::ecs::schedule::InternedSystemSet;
 use bevy::prelude::*;
 
-pub use camera::*;
-pub use movement::*;
-pub use player_actions::*;
-
 mod camera;
 mod movement;
 mod player_actions;
+
+pub use camera::*;
+pub use movement::*;
+pub use player_actions::*;
 
 #[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
 pub enum UpdateSet {
