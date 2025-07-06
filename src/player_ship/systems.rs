@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::constants::{PLAYER_BACKWARD_THRUST, PLAYER_FORWARD_THRUST, PLAYER_ROTATION_SPEED};
 use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
-use crate::core::resources::PlayerActions;
+use crate::core::player_actions::PlayerActions;
 use crate::core::Rotation;
 use crate::projectile::{spawn_projectile, ProjectileType};
 

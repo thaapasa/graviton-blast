@@ -4,10 +4,10 @@ use bevy::prelude::*;
 use crate::background::BackgroundPlugin;
 use crate::black_hole::BlackHolePlugin;
 use crate::constants::FIXED_UPDATE_RATE_HZ;
-use crate::core::resources::PlayerActions;
+use crate::core::player_actions::{map_input_to_player_actions, quit_if_requested, PlayerActions};
 use crate::core::systems::{
-    accelerate_objects, camera_deadzone_follow, limit_velocity, map_input_to_player_actions,
-    move_all_objects, quit_if_requested, rotate_all_objects, rotate_to_match_velocity,
+    accelerate_objects, camera_deadzone_follow, limit_velocity, move_all_objects,
+    rotate_all_objects, rotate_to_match_velocity,
 };
 use crate::core::{fps, UpdateSet};
 use crate::enemy_ship::EnemyShipPlugin;

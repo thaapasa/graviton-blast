@@ -3,7 +3,7 @@ use bevy::prelude::*;
 
 use crate::assets::{DrawingOrder, GameSprite};
 use crate::core::components::{FacingAngle, PlayerShip, Velocity};
-use crate::core::resources::PlayerActions;
+use crate::core::player_actions::PlayerActions;
 use crate::player_ship::components::TrailParticle;
 
 const PARTICLE_LIFETIME_SECS: f32 = 1.0;
