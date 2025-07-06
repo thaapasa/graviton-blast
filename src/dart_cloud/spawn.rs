@@ -1,9 +1,12 @@
+use bevy::prelude::*;
+
 use crate::assets::GameSprite;
-use crate::core::components::{FacingAngle, Velocity};
+use crate::core::components::{
+    AngleFollowsVelocity, FacingAngle, NextVelocity, SpatialTracked,
+};
 use crate::core::SpawnInfo;
 use crate::dart_cloud::components::Dart;
 use crate::utils::Vec2Ext;
-use bevy::prelude::*;
 
 pub fn spawn_dart_cloud(
     commands: &mut Commands,
@@ -23,9 +26,12 @@ pub fn spawn_dart_cloud(
         commands.spawn((
             Dart,
             Sprite::from_image(texture.clone()),
-            Velocity::default(),
-            angle,
             GameSprite::Dart.initial_transform(pos, angle),
+            angle.to_velocity(200.0),
+            NextVelocity::default(),
+            angle,
+            SpatialTracked,
+            AngleFollowsVelocity,
         ));
     }
 }

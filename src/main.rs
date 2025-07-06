@@ -1,13 +1,16 @@
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
+use bevy_spatial::{AutomaticUpdate, SpatialStructure, TransformMode};
+use std::time::Duration;
 
 use crate::background::BackgroundPlugin;
 use crate::black_hole::BlackHolePlugin;
 use crate::constants::FIXED_UPDATE_RATE_HZ;
+use crate::core::components::SpatialTracked;
 use crate::core::player_actions::{map_input_to_player_actions, quit_if_requested, PlayerActions};
 use crate::core::systems::{
-    accelerate_objects, camera_deadzone_follow, limit_velocity, move_all_objects,
-    rotate_all_objects, rotate_to_match_velocity,
+    accelerate_objects, camera_deadzone_follow, copy_next_velocity, limit_velocity,
+    move_all_objects, rotate_all_objects, rotate_to_match_velocity,
 };
 use crate::core::{fps, UpdateSet};
 use crate::enemy_ship::EnemyShipPlugin;
@@ -21,6 +24,7 @@ mod black_hole;
 mod constants;
 mod core;
 mod dart_cloud;
+pub use crate::dart_cloud::DartCloudPlugin;
 mod enemy_ship;
 mod level;
 mod player_ship;
@@ -38,18 +42,26 @@ fn main() {
         .insert_resource(PlayerActions::new())
         .add_plugins(DefaultPlugins)
         .add_plugins(FrameTimeDiagnosticsPlugin::default())
+        .add_plugins(
+            AutomaticUpdate::<SpatialTracked>::new()
+                .with_spatial_ds(SpatialStructure::KDTree2)
+                .with_frequency(Duration::from_secs_f32(0.1))
+                .with_transform(TransformMode::GlobalTransform),
+        )
         .add_plugins((
             PlayerShipPlugin,
             EnemyShipPlugin,
             BackgroundPlugin,
             BlackHolePlugin,
             ProjectilePlugin,
+            DartCloudPlugin,
         ))
         .add_systems(Startup, setup)
         .add_systems(
             FixedUpdate,
             (
                 map_input_to_player_actions.in_set(UpdateSet::Planning),
+                copy_next_velocity.in_set(UpdateSet::PlayerAction),
                 rotate_to_match_velocity.in_set(UpdateSet::Movement),
                 accelerate_objects.in_set(UpdateSet::Movement),
                 move_all_objects.in_set(UpdateSet::Movement),

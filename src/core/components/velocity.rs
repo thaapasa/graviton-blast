@@ -1,9 +1,14 @@
 use crate::core::components::FacingAngle;
 use bevy::prelude::*;
-use std::ops::{Add, AddAssign, Deref, DerefMut};
+use std::ops::{Add, AddAssign, Deref, DerefMut, Div};
 
 #[derive(Component, Debug, Copy, Clone, Default, PartialEq)]
 pub struct Velocity(Vec2);
+
+/// Velocity, that will be applied after the planning step.
+/// This can be used to calculate velocity based on other entities velocity, in the planning step.
+#[derive(Component, Debug, Default, Copy, Clone, PartialEq)]
+pub struct NextVelocity(pub Vec2);
 
 impl Deref for Velocity {
     type Target = Vec2;
@@ -44,5 +49,13 @@ impl Add for Velocity {
 impl AddAssign<Vec2> for Velocity {
     fn add_assign(&mut self, rhs: Vec2) {
         self.0 = self.0 + rhs
+    }
+}
+
+impl Div<f32> for Velocity {
+    type Output = Velocity;
+
+    fn div(self, rhs: f32) -> Self::Output {
+        Velocity(self.0 / rhs)
     }
 }

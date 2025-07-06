@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use crate::assets::GameSprite;
 use crate::core::components::{
-    AngleFollowsVelocity, FacingAngle, MaxVelocity, Thrust, Velocity,
+    AngleFollowsVelocity, FacingAngle, MaxVelocity, NextVelocity, Thrust, Velocity,
 };
 use crate::utils::Vec2Ext;
 
@@ -43,5 +43,11 @@ pub fn rotate_to_match_velocity(
 pub fn limit_velocity(mut query: Query<(&mut Velocity, &MaxVelocity)>) {
     for (mut velocity, max_velocity) in &mut query {
         **velocity = velocity.clamp_max_length_squared(max_velocity.squared());
+    }
+}
+
+pub fn copy_next_velocity(mut query: Query<(&mut Velocity, &NextVelocity)>) {
+    for (mut velocity, next_velocity) in &mut query {
+        **velocity = next_velocity.0;
     }
 }
