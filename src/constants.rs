@@ -6,6 +6,8 @@ use crate::core::components::{Mass, MaxVelocity};
 #[allow(clippy::excessive_precision)]
 pub const GOLDEN_ANGLE: f32 = 137.5077640500378546463487f32;
 
+pub const FIXED_UPDATE_RATE_HZ: f64 = 60.0;
+
 // Radians per second
 pub const PLAYER_ROTATION_SPEED: f32 = PI + FRAC_PI_2;
 pub const PLAYER_FORWARD_THRUST: f32 = 350.0;

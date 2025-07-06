@@ -7,6 +7,6 @@ pub struct EnemyShipPlugin;
 
 impl Plugin for EnemyShipPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, move_enemy_ships.in_set(UpdateSet::Movement));
+        app.add_systems(FixedUpdate, move_enemy_ships.in_set(UpdateSet::Movement));
     }
 }

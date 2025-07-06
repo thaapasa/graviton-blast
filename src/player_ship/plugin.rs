@@ -9,13 +9,13 @@ pub struct PlayerShipPlugin;
 impl Plugin for PlayerShipPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(
-            Update,
+            FixedUpdate,
             (
                 fire_player_weapons.in_set(UpdateSet::PlayerAction),
                 update_player_movement.in_set(UpdateSet::Movement),
                 spawn_trail_particles.in_set(UpdateSet::PostMovement),
-                fade_particles.in_set(UpdateSet::Finalize),
             ),
         );
+        app.add_systems(Update, (fade_particles.in_set(UpdateSet::Finalize),));
     }
 }
