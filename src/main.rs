@@ -7,6 +7,7 @@ use crate::core::systems::{
     accelerate_objects, camera_deadzone_follow, limit_velocity, map_input_to_player_actions,
     move_all_objects, quit_if_requested, rotate_all_objects, rotate_to_match_velocity,
 };
+use crate::core::UpdateSet;
 use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;
@@ -29,6 +30,7 @@ pub mod tests;
 
 fn main() {
     App::new()
+        .configure_sets(Update, UpdateSet::schedule())
         .add_plugins(DefaultPlugins)
         .add_plugins((
             PlayerShipPlugin,
@@ -39,14 +41,20 @@ fn main() {
         ))
         .insert_resource(ClearColor(Color::BLACK))
         .insert_resource(PlayerActions::new())
-        .add_systems(Update, (map_input_to_player_actions, quit_if_requested))
         .add_systems(Startup, setup)
-        .add_systems(Update, (rotate_to_match_velocity, accelerate_objects))
         .add_systems(
             Update,
-            (limit_velocity, move_all_objects, rotate_all_objects),
+            (
+                map_input_to_player_actions.in_set(UpdateSet::Planning),
+                rotate_to_match_velocity.in_set(UpdateSet::Movement),
+                accelerate_objects.in_set(UpdateSet::Movement),
+                move_all_objects.in_set(UpdateSet::Movement),
+                rotate_all_objects.in_set(UpdateSet::Movement),
+                limit_velocity.in_set(UpdateSet::PostMovement),
+                camera_deadzone_follow.in_set(UpdateSet::PostMovement),
+                quit_if_requested.in_set(UpdateSet::Finalize),
+            ),
         )
-        .add_systems(Update, camera_deadzone_follow)
         .run();
 }
 
