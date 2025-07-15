@@ -15,6 +15,10 @@ pub trait Vec2Ext {
     ///
     /// Uses a Fermat's spiral to calculate the positions.
     fn spiral_spread(n: usize) -> Vec2;
+
+    /// Averages this and another vector with the other vector having weight ``weight``
+    /// (in the range of `0..1`), and this having weight `1 - weight`.
+    fn add_with_weight(&self, rhs: &Vec2, weight: f32) -> Vec2;
 }
 
 impl Vec2Ext for Vec2 {
@@ -44,6 +48,12 @@ impl Vec2Ext for Vec2 {
         let y = radius * angle.sin();
 
         Vec2::new(x, y)
+    }
+
+    #[inline]
+    fn add_with_weight(&self, rhs: &Vec2, weight: f32) -> Vec2 {
+        let w = weight.clamp(0.0, 1.0);
+        *self * (1.0 - weight) + rhs * w
     }
 }
 
