@@ -1,5 +1,5 @@
-use crate::core::components::{Thrust, Velocity};
 use crate::core::SpawnInfo;
+use crate::core::components::{Thrust, Velocity};
 use crate::enemy_ship::components::{EnemyShip, EnemyShipType};
 use bevy::prelude::*;
 

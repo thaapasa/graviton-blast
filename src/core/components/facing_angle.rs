@@ -130,7 +130,7 @@ impl SubAssign<f32> for FacingAngle {
 mod tests {
     use crate::assert_vec_eq;
     use crate::core::components::FacingAngle;
-    use float_cmp::{approx_eq, assert_approx_eq};
+    use float_cmp::assert_approx_eq;
     use rstest::rstest;
     use std::f32::consts::{FRAC_PI_4, SQRT_2};
 

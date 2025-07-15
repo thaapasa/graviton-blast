@@ -7,12 +7,12 @@ use crate::background::BackgroundPlugin;
 use crate::black_hole::BlackHolePlugin;
 use crate::constants::FIXED_UPDATE_RATE_HZ;
 use crate::core::components::SpatialTracked;
-use crate::core::player_actions::{map_input_to_player_actions, quit_if_requested, PlayerActions};
+use crate::core::player_actions::{PlayerActions, map_input_to_player_actions, quit_if_requested};
 use crate::core::systems::{
     accelerate_objects, camera_deadzone_follow, copy_next_velocity, limit_velocity,
     move_all_objects, rotate_all_objects, rotate_to_match_velocity,
 };
-use crate::core::{fps, UpdateSet};
+use crate::core::{UpdateSet, fps};
 use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;

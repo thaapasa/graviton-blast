@@ -1,10 +1,10 @@
 use bevy::prelude::*;
 
 use crate::constants::{PLAYER_BACKWARD_THRUST, PLAYER_FORWARD_THRUST, PLAYER_ROTATION_SPEED};
+use crate::core::Rotation;
 use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
 use crate::core::player_actions::PlayerActions;
-use crate::core::Rotation;
-use crate::projectile::{spawn_projectile, ProjectileType};
+use crate::projectile::{ProjectileType, spawn_projectile};
 
 /// Updates player ship movement based on player actions
 pub fn update_player_movement(

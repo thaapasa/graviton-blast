@@ -107,8 +107,7 @@ mod tests {
 
     #[test]
     fn test_avoid_weight() {
-        use fixtures::{neighbor, FAR1, NEAR1, NEAR2};
-        let v = Velocity::ZERO;
+        use fixtures::{FAR1, NEAR1, NEAR2, neighbor};
         assert_approx_eq!(f32, DartCloud::avoid_weight(&[neighbor(FAR1)]), 0.0);
         let d1 = DartCloud::avoid_weight(&[neighbor(NEAR1)]);
         let d2 = DartCloud::avoid_weight(&[neighbor(NEAR2)]);
@@ -126,7 +125,7 @@ mod tests {
 
     #[test]
     fn test_avoidance() {
-        use fixtures::{neighbor, NEAR1, NEAR2};
+        use fixtures::{NEAR1, NEAR2, neighbor};
         assert_vec_eq!(
             DartCloud::avoidance(&[neighbor(NEAR1)]),
             -0.74740934,
@@ -146,7 +145,7 @@ mod tests {
 
     #[test]
     fn test_alignment() {
-        use fixtures::{neighbor_v, NEAR1, NEAR2};
+        use fixtures::{NEAR1, NEAR2, neighbor_v};
         let v1 = Velocity::new(Vec2::new(10.0, 0.0).normalize());
         let v2 = Velocity::new(Vec2::new(0.0, 2.0).normalize());
         assert_vec_eq!(DartCloud::alignment(&[neighbor_v(NEAR1, v1)]), 1.0, 0.0);
@@ -160,7 +159,7 @@ mod tests {
 
     #[test]
     fn test_cohesion() {
-        use fixtures::{neighbor, ME, NEAR1, NEAR2};
+        use fixtures::{ME, NEAR1, NEAR2, neighbor};
         assert_vec_eq!(
             DartCloud::cohesion(ME, &[neighbor(NEAR1)]),
             0.74740934,
@@ -179,9 +178,10 @@ mod tests {
     }
 
     mod fixtures {
+        use bevy::prelude::Vec2;
+
         use crate::core::components::Velocity;
         use crate::dart_cloud::systems::NearestBoid;
-        use bevy::prelude::Vec2;
 
         pub const ME: Vec2 = Vec2::new(20.0, 20.0);
         pub const NEAR1: Vec2 = Vec2::new(29.0, 12.0);

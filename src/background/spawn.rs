@@ -1,8 +1,8 @@
 use bevy::asset::AssetServer;
 use bevy::prelude::*;
 
-use crate::background::components::BackgroundTile;
 use crate::background::ParallaxBackground;
+use crate::background::components::BackgroundTile;
 use crate::core::components::FacingAngle;
 
 pub fn spawn_parallax_background(

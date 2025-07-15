@@ -1,6 +1,6 @@
 use crate::background::ParallaxBackground;
-use crate::core::components::FacingAngle;
 use crate::core::SpawnInfo;
+use crate::core::components::FacingAngle;
 use crate::enemy_ship::EnemyShipType::Enemy1;
 use crate::level::level_data::LevelData;
 
