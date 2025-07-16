@@ -13,6 +13,7 @@ pub fn spawn_player_ship(
     facing_angle: FacingAngle,
 ) {
     commands.spawn((
+        Name::new("PlayerShip"),
         PlayerShip,
         Sprite::from_image(GameSprite::PlayerShip.load(asset_server)),
         GameSprite::PlayerShip.initial_transform(starting_pos, facing_angle),

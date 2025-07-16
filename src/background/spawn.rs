@@ -26,6 +26,7 @@ pub fn spawn_tile(
     tile_texture: Handle<Image>,
 ) {
     commands.spawn((
+        Name::new(format!("BackgroundTile {x}x{y}")),
         BackgroundTile { x, y },
         Sprite::from_image(tile_texture),
         background.id,

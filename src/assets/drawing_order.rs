@@ -13,6 +13,7 @@ pub enum DrawingOrder {
     #[allow(dead_code)]
     EnemyShip,
     PlayerShip,
+    UI,
 }
 
 impl DrawingOrder {
@@ -29,6 +30,7 @@ impl DrawingOrder {
             Self::Dart => 35.0,
             Self::EnemyShip => 40.0,
             Self::PlayerShip => 50.0,
+            Self::UI => 100.0,
         }
     }
 

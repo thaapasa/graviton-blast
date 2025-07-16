@@ -4,6 +4,7 @@ use crate::assets::GameSprite;
 use crate::constants::PROJECTILE_BLASTER_MASS;
 use crate::core::components::Mass;
 
+#[derive(Debug)]
 pub enum ProjectileType {
     /// Basic player ship blaster fire (blue electric bolt)
     PlayerBlaster,

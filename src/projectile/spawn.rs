@@ -12,6 +12,7 @@ pub fn spawn_projectile(
 ) {
     let sprite = projectile_type.sprite();
     commands.spawn((
+        Name::new(format!("Projectile {projectile_type:?}")),
         projectile_type.create_projectile(),
         Sprite::from_image(sprite.load(asset_server)),
         velocity + facing_angle.to_velocity(projectile_type.speed()),

@@ -12,6 +12,7 @@ pub struct FpsText;
 pub fn spawn_fps_counter(commands: &mut Commands) {
     commands
         .spawn((
+            Name::new("FpsCounterNode"),
             Node {
                 // We need to make sure the overlay doesn't affect the position of other UI nodes
                 position_type: PositionType::Absolute,
@@ -24,6 +25,7 @@ pub fn spawn_fps_counter(commands: &mut Commands) {
         ))
         .with_children(|p| {
             p.spawn((
+                Name::new("FPSCounter"),
                 Text::new("FPS: "),
                 FpsText,
                 TextFont {

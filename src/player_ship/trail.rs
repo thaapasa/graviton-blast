@@ -23,6 +23,7 @@ pub fn spawn_trail_particles(
     let trail_angle = angle.flip();
 
     commands.spawn((
+        Name::new("ExhaustTrail"),
         TrailParticle {
             lifetime: PARTICLE_LIFETIME_SECS,
         },

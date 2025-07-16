@@ -1,8 +1,9 @@
+mod primitives;
+
 pub mod components;
 pub mod fps;
 pub mod player_actions;
-mod primitives;
-
+pub mod ship_status;
 pub mod systems;
 
 pub use primitives::*;

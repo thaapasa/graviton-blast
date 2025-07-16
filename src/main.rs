@@ -12,7 +12,7 @@ use crate::core::systems::{
     accelerate_objects, camera_deadzone_follow, copy_next_velocity, limit_velocity,
     move_all_objects, rotate_all_objects, rotate_to_match_velocity,
 };
-use crate::core::{UpdateSet, fps};
+use crate::core::{UpdateSet, fps, ship_status};
 use crate::enemy_ship::EnemyShipPlugin;
 use crate::level::Level1;
 use crate::player_ship::PlayerShipPlugin;
@@ -83,6 +83,7 @@ fn main() {
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2d);
     fps::spawn_fps_counter(&mut commands);
+    ship_status::spawn_ship_status(&mut commands, &asset_server);
 
     // Start with level 1
     Level1::create().spawn(&mut commands, asset_server);

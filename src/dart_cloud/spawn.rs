@@ -25,6 +25,7 @@ pub fn spawn_dart_cloud(
         let initial_velocity = angle.to_velocity(DartCloud::MAX_VELOCITY.velocity() * 0.2);
 
         commands.spawn((
+            Name::new("Dart"),
             Dart,
             Sprite::from_image(texture.clone()),
             GameSprite::Dart.initial_transform(pos, initial_angle),
