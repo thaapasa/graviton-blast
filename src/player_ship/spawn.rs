@@ -4,6 +4,7 @@ use bevy::prelude::*;
 use crate::assets::GameSprite;
 use crate::constants::{PLAYER_SHIP_MASS, PLAYER_SHIP_MAX_VELOCITY};
 use crate::core::components::{FacingAngle, PlayerShip, Thrust, Velocity};
+use crate::core::health::{Health, MaxHealth};
 
 /// Spawns player ship at the given position
 pub fn spawn_player_ship(
@@ -22,5 +23,7 @@ pub fn spawn_player_ship(
         Velocity::ZERO,
         PLAYER_SHIP_MASS,
         PLAYER_SHIP_MAX_VELOCITY,
+        Health::new(100.0),
+        MaxHealth::new(100.0),
     ));
 }

@@ -1,8 +1,7 @@
-use bevy::prelude::*;
-
 use crate::core::UpdateSet;
 use crate::player_ship::systems::{fire_player_weapons, update_player_movement};
 use crate::player_ship::trail::{fade_particles, spawn_trail_particles};
+use bevy::prelude::*;
 
 pub struct PlayerShipPlugin;
 

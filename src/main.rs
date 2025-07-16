@@ -67,6 +67,7 @@ fn main() {
                 move_all_objects.in_set(UpdateSet::Movement),
                 rotate_all_objects.in_set(UpdateSet::Movement),
                 limit_velocity.in_set(UpdateSet::PostMovement),
+                ship_status::update_player_status.in_set(UpdateSet::Finalize),
                 quit_if_requested.in_set(UpdateSet::Finalize),
             ),
         )

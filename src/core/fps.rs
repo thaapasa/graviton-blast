@@ -60,8 +60,8 @@ pub fn update_fps(
     }
     *time_since_rerender = Duration::ZERO;
     if let Some(fps) = diagnostics.get(&FrameTimeDiagnosticsPlugin::FPS) {
-        for text in &query {
-            if let Some(value) = fps.smoothed() {
+        if let Some(value) = fps.smoothed() {
+            for text in &query {
                 *writer.text(text, 1) = format!("{value:.1}");
             }
         }

@@ -61,6 +61,12 @@ impl ParallaxBackground {
                 ..Default::default()
             },
             ParallaxBackground {
+                sprite: GameSprite::StarsSparse,
+                speed: 0.49,
+                offset: Vec2::new(107.0, 279.0),
+                ..Default::default()
+            },
+            ParallaxBackground {
                 sprite: GameSprite::StarsLarge,
                 speed: 0.69,
                 ..Default::default()

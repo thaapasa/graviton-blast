@@ -2,6 +2,7 @@ mod primitives;
 
 pub mod components;
 pub mod fps;
+pub mod health;
 pub mod player_actions;
 pub mod ship_status;
 pub mod systems;

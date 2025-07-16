@@ -30,7 +30,7 @@ impl GameSprite {
     pub const INHERENT_TEXTURE_ROTATION: f32 = -FRAC_PI_2;
 
     #[inline]
-    pub fn filename(&self) -> &str {
+    pub const fn filename(&self) -> &str {
         match self {
             Self::StarsSparse => "stars-sparse",
             Self::StarsLarge => "stars-large",
@@ -46,7 +46,7 @@ impl GameSprite {
 
     /// Returns the scale this sprite should be drawn to on the game screen by default.
     #[inline]
-    pub fn scale(&self) -> f32 {
+    pub const fn scale(&self) -> f32 {
         match self {
             Self::StarsSparse => 1.0,
             Self::StarsLarge => 1.0,
@@ -56,14 +56,14 @@ impl GameSprite {
             Self::ExhaustRing => 0.05,
             Self::Dart => 0.2,
             Self::BlackHole => 0.3,
-            Self::ShipStatus => 0.3,
+            Self::ShipStatus => 0.4,
         }
     }
 
     /// Returns the size of this square sprite (width and/or height, since they are both the same),
     /// in pixels.
     #[inline]
-    pub fn size(&self) -> usize {
+    pub const fn size(&self) -> usize {
         match self {
             Self::ExhaustRing | Self::ShotBlueBlaster | Self::Dart => 128,
             Self::PlayerShip | Self::EnemyShip1 | Self::BlackHole | Self::ShipStatus => 256,
@@ -72,7 +72,7 @@ impl GameSprite {
     }
 
     #[inline]
-    pub fn scaled_size(&self) -> f32 {
+    pub const fn scaled_size(&self) -> f32 {
         (self.size() as f32) * self.scale()
     }
 
